@@ -58,10 +58,15 @@ async function seedDefaultUsers() {
     INSERT OR IGNORE INTO solved_challenges (user_id, challenge_id, solved_at) VALUES (?, ?, ?)
   `);
 
-  const insertMany = db.transaction(async () => {
-    for (const u of defaults) {
-      const hash = await bcrypt.hash(u.password, 10);
-      insert.run({ ...u, password_hash: hash, createdAt: new Date().toISOString() });
+  const hashedDefaults = [];
+  for (const u of defaults) {
+    const hash = await bcrypt.hash(u.password, 10);
+    hashedDefaults.push({ ...u, password_hash: hash, createdAt: new Date().toISOString() });
+  }
+
+  const insertMany = db.transaction(() => {
+    for (const u of hashedDefaults) {
+      insert.run(u);
     }
     // Seed some solved challenges for demo users
     const now = new Date().toISOString();
@@ -72,7 +77,7 @@ async function seedDefaultUsers() {
     insertSolve.run('u3', 'OSINT-02', now);
   });
 
-  await insertMany();
+  insertMany();
   console.log('[DB] Default users seeded.');
 }
 
