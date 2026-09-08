@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Codeverse — Hybrid Cybersecurity Contest Platform. Operation 0xRAVEN: OSINT, Web CTF, and Code Review challenges in one continuous investigation.">
+  <meta property="og:title" content="CODEVERSE — Operation 0xRAVEN">
+  <meta property="og:description" content="A developer has vanished. Follow the digital breadcrumbs.">
+  <title>CASEFILE — Operation 0xRAVEN // Cybersecurity CTF Platform</title>
+  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: "#edf2f7",
+            "surface-card": "#ffffff",
+            "surface-muted": "#e2e8f0",
+            "surface-subtle": "#e8edf2",
+            "border-line": "#cbd5e1",
+            "border-darker": "#94a3b8",
+            "dark-title": "#0f172a",
+            "dark-body": "#334155",
+            "dark-muted": "#64748b",
+            "gamer-purple": "#7c3aed",
+            "gamer-cyan": "#0284c7",
+            "gamer-emerald": "#10b981",
+            "gamer-coral": "#f43f5e",
+            "gamer-amber": "#f59e0b"
+          },
+          fontFamily: {
+            sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+            display: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            "label-caps": ["Inter", "sans-serif"],
+            "telemetry": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+
+  <!-- Loading Screen: Pure Logo + Whole-Logo Glitch + Matrix Suction (Light Theme) -->
+  <div id="loading-screen" class="cyber-vortex-loader light-theme">
+    <canvas id="matrix-canvas" class="matrix-suction-canvas"></canvas>
+    
+    <div class="vortex-core-container">
+      <div class="vortex-singularity-aura"></div>
+      <div class="vortex-ring ring-1"></div>
+      <div class="vortex-ring ring-2"></div>
+      <div class="vortex-ring ring-3"></div>
+      
+      <!-- Whole Glitch Container with Full-Body Clones & Slices -->
+      <div class="whole-glitch-stage" id="whole-glitch-stage">
+        <!-- Out-of-bounds whole logo chromatic aberration clones -->
+        <div class="whole-logo-clone clone-cyan" aria-hidden="true"></div>
+        <div class="whole-logo-clone clone-magenta" aria-hidden="true"></div>
+        <div class="whole-logo-clone clone-yellow" aria-hidden="true"></div>
+
+        <!-- Main Glitching Logo Container -->
+        <div class="glitch-logo-wrap" id="glitch-logo-container">
+          <img src="logo.jpeg" alt="Codeverse Logo" class="vortex-logo-img" id="loading-logo" onerror="this.src='';this.classList.add('logo-fallback');this.alt='0x'">
+          <!-- Internal horizontal tear slices -->
+          <div class="glitch-tear-slice slice-top" aria-hidden="true"></div>
+          <div class="glitch-tear-slice slice-mid" aria-hidden="true"></div>
+          <div class="glitch-tear-slice slice-bot" aria-hidden="true"></div>
+          <div class="glitch-scanlines" aria-hidden="true"></div>
+          <div class="logo-energy-sheen" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scanline overlay (always present) -->
+  <div class="scanlines" id="scanlines-overlay"></div>
+
+  <!-- App Root -->
+  <div id="app"></div>
+
+  <!-- Toast notification area (outside app for z-index) -->
+  <div id="toast-container"></div>
+
+  <!-- Contest & Challenges Data (offline / file:// safe) -->
+  <script src="data.js"></script>
+
+  <!-- Mascot Sprites (offline / file:// safe) -->
+  <script src="mascot-sprites.js"></script>
+
+  <!-- Cyber Forensic Terminal & Tools (offline / file:// safe) -->
+  <script src="cyber_tools.js"></script>
+
+  <!-- Text Glitch / Reveal Animation Library -->
+  <script src="baffle.min.js"></script>
+
+  <!-- App Script -->
+  <script src="app.js?v=12"></script>
+</body>
+</html>

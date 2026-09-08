@@ -1,0 +1,1327 @@
+/* ============================================================
+   CODEVERSE — Cyber Contest Data (Bundled for file:// protocol)
+   ============================================================ */
+
+window.CONTEST_DATA = {
+  "contest": {
+    "id": "operation-raven-2026",
+    "title": "OPERATION 0xRAVEN",
+    "subtitle": "Classified Cyber Threat Intelligence & Adversarial Red Team Operation",
+    "tagline": "Rogue Operator Telemetry Intercepted. Track the Vector. Breach the Perimeter.",
+    "status": "active",
+    "start_time": "2026-09-05T10:00:00+05:30",
+    "end_time": "2026-09-05T18:00:00+05:30",
+    "leaderboard_visible": true,
+    "free_play_mode": false,
+    "story": {
+      "intro": "At 03:47 UTC, senior defense security architect '0xRAVEN' executed an evasive kill-switch and severed all network links. His operational workstations were wiped, but real-time SIGINT telemetry captured outbound encrypted bursts across illicit darknet exchange nodes. Agency intelligence confirms he left behind an adversarial trail: cryptographic relays, an unscrubbed corporate web application, and classified source repositories. Your task as lead cyber threat intelligence investigator is to reconstruct the exfiltration trail, breach his live targets, and neutralize the threat vector before his persistence beacons expire.",
+      "chapter1": "Phase 1: Open-source signals intelligence. 0xRAVEN deployed multi-layered cryptographic obfuscation across public code mirrors, orphaned commit histories, and radio sub-carriers. Isolate his signatures and reconstruct the primary attack vector.",
+      "chapter2": "Phase 2: Target perimeter engagement. The trail points directly to 0xRAVEN's corporate staging environment — oxraventest.com. Infiltrate the perimeter gateway, exploit IDOR in profile records, weaponize database injection, and escalate privileges to the administrative root.",
+      "chapter3": "Phase 3: Source artifact forensic audit. Recovered backend microservice source code contains severe zero-day vulnerabilities and architectural backdoors left in plain sight. Conduct a forensic SAST review to extract the master verification cipher.",
+      "outro": "Incident neutralized. All adversarial vectors have been audited, documented, and dismantled. 0xRAVEN's test of adversarial readiness is complete. You have demonstrated elite cyber warfare and offensive security mastery."
+    },
+    "suspect": {
+      "alias": "0xRAVEN",
+      "last_seen": "2026-09-02T03:47:00Z",
+      "last_known_message": "SIGINT INTERCEPT // PAYLOAD DUMP:\n[RAW-HEX-BURST]\n4E 6F 74 68 69 6E 67 20 69 73 20 68 69 64 64 65 6E",
+      "avatar_hint": "Operative Insignia: Corvus corax / Threat Actor 0xRAVEN",
+      "known_usernames": [
+        "nullbyte_47",
+        "0xRAVEN",
+        "r4ven_sec",
+        "the_nullbird"
+      ],
+      "known_platforms": [
+        "GitHub Enterprise Mirror",
+        "Tor Onion Relays",
+        "Encrypted SIGINT Channels"
+      ]
+    }
+  },
+  "rounds": [
+    {
+      "id": 1,
+      "slug": "osint",
+      "name": "ROUND 1 — SIGINT & OSINT",
+      "subtitle": "Signal Reconnaissance & Cryptanalysis",
+      "description": "Reconstruct 0xRAVEN's exfiltration footprint across intercepted darknet payloads, orphaned repository commit histories, and covert radio sub-carrier bursts.",
+      "icon": "🛰️",
+      "color": "#00F5FF",
+      "unlock_condition": null
+    },
+    {
+      "id": 2,
+      "slug": "web",
+      "name": "ROUND 2 — OFFENSIVE WEB CTF",
+      "subtitle": "Target Perimeter Infiltration",
+      "description": "Engage 0xRAVEN's live corporate test environment at oxraventest.com. Breach perimeter authentication, exploit IDOR dossier leaks, execute SQL injection, and hijack administrative sessions.",
+      "icon": "🌐",
+      "color": "#00FF88",
+      "unlock_condition": "complete_round_1"
+    },
+    {
+      "id": 3,
+      "slug": "code",
+      "name": "ROUND 3 — CODE AUDIT & SAST",
+      "subtitle": "Adversarial Source Code Forensics",
+      "description": "Decompile and audit backend microservice repositories. Uncover dangerous query concatenations, authentication bypass flaws, and extract the master operational flag.",
+      "icon": "⚡",
+      "color": "#8B5CF6",
+      "unlock_condition": "complete_round_2"
+    }
+  ],
+  "rules": [
+    "Target Engagement Scope: Operations restricted strictly to designated challenge sandboxes and oxraventest.com.",
+    "OPSEC Standards: Inter-operative answer sharing and unauthorized collusion are strictly prohibited.",
+    "Intelligence Tax: Tactical hint decryption imposes an operational score penalty.",
+    "Adversarial Reporting: Unintended infrastructure vulnerabilities must be cataloged immediately.",
+    "Credential Integrity: Single-operator clearance per forensic workstation.",
+    "Answer Submissions: Enter the plain text answer discovered in each challenge (e.g. NOTHING_IS_HIDDEN). Format is flexible and beginner-friendly!",
+    "Lead Director adjudication is final across all operational disputes."
+  ]
+};
+
+window.CHALLENGES_DATA = {
+  "challenges": [
+    {
+      "id": "OSINT-01",
+      "round": 1,
+      "name": "Intercept Zero // Darknet Signal Beacon",
+      "description": "At 03:47 UTC, automated listening posts intercepted an anomalous encrypted transmission broadcast from a bulletproof relay operated by 0xRAVEN:\n\n```\n4E 6F 74 68 69 6E 67 20 69 73 20 68 69 64 64 65 6E\n```\n\nAnalyze the intercepted raw transmission stream to reconstruct 0xRAVEN's initial doctrine and uncover the secret verification answer.",
+      "difficulty": "easy",
+      "points": 25,
+      "flag": "NOTHING_IS_HIDDEN",
+      "order": 1,
+      "enabled": true,
+      "prerequisites": [],
+      "type": "crypto",
+      "unlock_message": "TRANSMISSION DECRYPTED: 'Nothing is hidden'. Telemetry confirms 0xRAVEN's initial doctrine. Correlate this signature to track his operational identity.",
+      "hints": [
+        {
+          "id": "OSINT-01-H1",
+          "text": "The payload represents raw hexadecimal octets (base-16 byte sequence). Each pair of nibbles corresponds to an ASCII character byte.",
+          "cost": 3,
+          "order": 1
+        },
+        {
+          "id": "OSINT-01-H2",
+          "text": "Map each byte offset in the Hex Dump to standard ASCII/UTF-8 encoding (0x4E = 'N', 0x6F = 'o', 0x74 = 't'). Translate the full byte sequence to decode your operative's verification answer.",
+          "cost": 5,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": null,
+      "mascot_hint": "Hexadecimal bytes directly translate to ASCII text characters. Decode them to read the answer."
+    },
+    {
+      "id": "OSINT-02",
+      "round": 1,
+      "name": "Persona Footprint // Staged Identity Cache",
+      "description": "Threat intelligence feeds correlate 0xRAVEN's activity with the handle **nullbyte_47**.\n\nAn archival snapshot recovered from a developer mirror profile yielded an obfuscated Base64 token:\n\n```\nVEhFX1JFUE9fV0FTX05FVkVSX0RFTEVURUQ=\n```\n\nDecode the Base64 token to discover the secret answer lead.",
+      "difficulty": "easy",
+      "points": 25,
+      "flag": "THE_REPO_WAS_NEVER_DELETED",
+      "order": 2,
+      "enabled": true,
+      "prerequisites": [
+        "OSINT-01"
+      ],
+      "type": "crypto",
+      "unlock_message": "INTELLIGENCE CONFIRMED: 'THE REPO WAS NEVER DELETED'. Version control snapshots persist in distributed mirrors. Pivot to repository forensics.",
+      "hints": [
+        {
+          "id": "OSINT-02-H1",
+          "text": "Examine the character distribution: alphanumeric characters with '=' terminal padding indicate standard Base64 encoding (RFC 4648).",
+          "cost": 3,
+          "order": 1
+        },
+        {
+          "id": "OSINT-02-H2",
+          "text": "Execute client-side decoding via JavaScript atob() or CyberChef on the base64 commit artifact to extract your operative's verification answer.",
+          "cost": 5,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": null,
+      "mascot_hint": "A Base64 encoded token with terminal padding. Reconstruct the plaintext answer."
+    },
+    {
+      "id": "OSINT-03",
+      "round": 1,
+      "name": "Forensic Excavation // Orphaned Commit Log",
+      "description": "Forensic indexing of public repository mirrors uncovered an archived code tree: **r4ven-sec/operation-midnight**.\n\nInspection of commit history revealed a scrubbed staging variable encoded in ROT13:\n\n```\nROT13: GUR_CNFFJBEQ_JNF_VA_GUR_PBZZVG\n```\n\nReverse the ROT13 substitution cipher to extract the plaintext secret answer.",
+      "difficulty": "medium",
+      "points": 50,
+      "flag": "THE_PASSWORD_WAS_IN_THE_COMMIT",
+      "order": 3,
+      "enabled": true,
+      "prerequisites": [
+        "OSINT-02"
+      ],
+      "type": "crypto",
+      "unlock_message": "SECRET RECOVERED: The authentication key was harvested from the purged commit history. You now possess intelligence required to engage the live web perimeter.",
+      "hints": [
+        {
+          "id": "OSINT-03-H1",
+          "text": "ROT13 represents a Caesar substitution cipher with a fixed 13-character rotation offset. Because the alphabet has 26 characters, rotating by 13 again decodes it.",
+          "cost": 5,
+          "order": 1
+        },
+        {
+          "id": "OSINT-03-H2",
+          "text": "Rotate each alphabetical character in the commit message by 13 positions (G -> T, U -> H, R -> E) to decipher the concealed password token.",
+          "cost": 8,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": null,
+      "mascot_hint": "A classical substitution cipher. Rotate the character positions by 13 to read the secret."
+    },
+    {
+      "id": "OSINT-04",
+      "round": 1,
+      "name": "Sub-Carrier Exfiltration // Acoustic Telemetry",
+      "description": "Artifact recovery from the archived repository located a radio transmission log under `/notes/transmission.txt`:\n\n```\n-- --- .-. ... .   .. ...   .- .-.. .. ...- .\n```\n\nDemodulate the Morse code transmission stream to reconstruct the perimeter access answer.",
+      "difficulty": "medium",
+      "points": 50,
+      "flag": "MORSE_IS_ALIVE",
+      "order": 4,
+      "enabled": true,
+      "prerequisites": [
+        "OSINT-03"
+      ],
+      "type": "crypto",
+      "unlock_message": "CW DEMODULATION COMPLETE: All signals intelligence objectives satisfied. The target perimeter node at oxraventest.com is now live. Initiate offensive web engagement.",
+      "hints": [
+        {
+          "id": "OSINT-04-H1",
+          "text": "The transmission utilizes International Morse pulse standards. Dots (.) represent short pulses; dashes (-) represent long pulses; spaces delineate character boundaries.",
+          "cost": 5,
+          "order": 1
+        },
+        {
+          "id": "OSINT-04-H2",
+          "text": "Translate the international Morse pulse tokens into Latin alphanumeric characters (-- = M, --- = O, .-. = R) to reconstruct the transmission token.",
+          "cost": 8,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": null,
+      "mascot_hint": "Continuous-wave pulsed audio telemetry. Translate the pulse symbols to plain letters."
+    },
+    {
+      "id": "WEB-01",
+      "round": 2,
+      "name": "Perimeter Infiltration // Gateway Access Control",
+      "description": "### Target Endpoint & Scope\n- **Target URL:** `https://oxraventest.com/login`\n- **Route:** `/login` (Internal Auth API: `POST /api/login`)\n- **HTTP Method:** `POST`\n- **Parameters:** `username` (text), `password` (text)\n- **Classification:** CWE-89 (SQL Injection) & CWE-287 (Improper Authentication)\n\n### Mission Scenario\nThreat intelligence indicates 0xRAVEN operates a public authentication gateway at `https://oxraventest.com/login` controlling access to internal enterprise clusters. The application verifies employee credentials against a backend database.\n\n### Mission Directive\n1. Launch the target in the simulated browser.\n2. Conduct black-box reconnaissance against the authentication endpoint to identify credential validation vulnerabilities.\n3. Escalate access into the restricted administrative console (`/admin`) to recover the perimeter verification token.\n\n### Expected Answer Guide\n- **Format:** Plain text token in uppercase with underscores (`TOKEN_NAME_FORMAT`).",
+      "difficulty": "easy",
+      "points": 50,
+      "flag": "BROKEN_ACCESS_CONTROL",
+      "order": 1,
+      "enabled": true,
+      "prerequisites": [
+        "OSINT-04"
+      ],
+      "type": "web",
+      "unlock_message": "PERIMETER BREACH VERIFIED. The identity gateway has been compromised via broken access controls and unsanitized query concatenation.",
+      "hints": [
+        {
+          "id": "WEB-01-H1",
+          "text": "⚡ [HIGH PRIORITY INTEL // AUTH HANDLER QUERY]\nInternal authentication query architecture recovered:\nSELECT * FROM users WHERE username = '${user}' AND password = '${pass}'\n\nThe server interpolates client inputs without parameterized binding. Submitting an authentication bypass tautology in the password field (such as ' OR '1'='1) forces the query logic to evaluate to true without valid credentials.",
+          "cost": 5,
+          "order": 1
+        },
+        {
+          "id": "WEB-01-H2",
+          "text": "🎯 [TACTICAL INTEL // RECON & TOKEN EXFILTRATION]\n• Administrative Console: Once inside /admin, check the security status badge on the dashboard or inspect document.cookie (secret_token_hex) in DevTools. Decode the hexadecimal string to obtain the plain text token.\n• Staging Assets: Unlinked files at /robots.txt or /.env expose forgotten administrator test credentials.",
+          "cost": 10,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": "https://oxraventest.com/login",
+      "endpoint": "https://oxraventest.com/login",
+      "target_route": "/login",
+      "http_method": "POST",
+      "target_parameter": "username, password",
+      "cwe": "CWE-89 (SQL Injection) / CWE-287 (Improper Authentication)",
+      "vulnerability": "SQL Injection / Credential Exposure",
+      "expected_answer_guide": "Gain administrative access to the console and inspect the session verification artifacts (dashboard status / cookies) to recover the captured token.",
+      "mascot_hint": "Reconnaissance is key. Investigate the authentication gateway for credential validation weaknesses."
+    },
+    {
+      "id": "WEB-02",
+      "round": 2,
+      "name": "Dossier Exfiltration // Insecure Object Reference",
+      "description": "### Target Endpoint & Scope\n- **Target URL:** `https://oxraventest.com`\n- **Scope:** Internal Employee Directory & Profile Services\n- **Classification:** CWE-639 (Insecure Direct Object Reference / BOLA)\n\n### Mission Scenario\nThe 0xRAVEN enterprise portal provides authenticated staff with an internal profile lookup service to view identity cards and departmental assignments.\n\n### Mission Directive\n1. Launch the simulated browser and navigate to the profile lookup section.\n2. Analyze how employee profiles are requested and identify the parameter controlling object references.\n3. Test authorization boundaries to exfiltrate supervisory personnel dossiers and extract the verification token.\n\n### Expected Answer Guide\n- **Format:** Plain text token in uppercase with underscores (`TOKEN_NAME_FORMAT`).",
+      "difficulty": "medium",
+      "points": 75,
+      "flag": "IDOR_GIVES_YOU_WINGS",
+      "order": 2,
+      "enabled": true,
+      "prerequisites": [
+        "WEB-01"
+      ],
+      "type": "web",
+      "unlock_message": "DOSSIER EXFILTRATED. CWE-639 / BOLA verified. Trusting client-supplied entity identifiers without access control enforcement exposes confidential records.",
+      "hints": [
+        {
+          "id": "WEB-02-H1",
+          "text": "⚡ [HIGH PRIORITY INTEL // ENDPOINT IDENTIFICATION]\nThe profile lookup service communicates via /api/profile?user_id={id}. The server queries employee records based purely on the client-supplied user_id parameter without validating whether the requesting session is authorized to inspect other personnel's confidential dossiers (IDOR/BOLA).",
+          "cost": 8,
+          "order": 1
+        },
+        {
+          "id": "WEB-02-H2",
+          "text": "🎯 [TACTICAL INTEL // SUPERVISORY TARGET EXTRACTION]\nIn the address bar, modify the query parameter to user_id=1 (the root administrator/supervisory director ID). Inspect the returned record for the private supervisory note, and reverse the 13-character rotation (ROT13) to retrieve the verification answer.",
+          "cost": 12,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": "https://oxraventest.com/api/profile?user_id=2",
+      "endpoint": "https://oxraventest.com/api/profile?user_id={id}",
+      "target_route": "/api/profile?user_id=2",
+      "http_method": "GET",
+      "target_parameter": "user_id (Query parameter)",
+      "cwe": "CWE-639 (Insecure Direct Object Reference / BOLA)",
+      "vulnerability": "IDOR / BOLA",
+      "expected_answer_format": "UPPERCASE_WITH_UNDERSCORES (Plain text token)",
+      "expected_answer_guide": "Inspect the exfiltrated supervisory profile record to locate and recover the operational verification token.",
+      "mascot_hint": "Examine how profile records are queried. Can client-side parameters be manipulated to access unauthorized records?"
+    },
+    {
+      "id": "WEB-03",
+      "round": 2,
+      "name": "In-Band Extraction // Database Engine Injection",
+      "description": "### Target Endpoint & Scope\n- **Target URL:** `https://oxraventest.com/search`\n- **Route:** `/search` (Internal API: `GET /api/search?q={query}`)\n- **HTTP Method:** `GET`\n- **Parameters:** `q` (Search query string)\n- **Classification:** CWE-89 (SQL Injection)\n\n### Mission Scenario\n0xRAVEN hosts an internal personnel directory and resource lookup engine at `https://oxraventest.com/search` used across corporate divisions.\n\n### Mission Directive\n1. Navigate to `https://oxraventest.com/search` in the simulated browser.\n2. Probe the search query interface for input validation and query handling weaknesses.\n3. Extract confidential records from the backend database to recover the operational verification token.\n\n### Expected Answer Guide\n- **Format:** Plain text token in uppercase with underscores (`TOKEN_NAME_FORMAT`).",
+      "difficulty": "medium",
+      "points": 75,
+      "flag": "SQL_ALWAYS_TELLS_THE_TRUTH",
+      "order": 3,
+      "enabled": true,
+      "prerequisites": [
+        "WEB-02"
+      ],
+      "type": "web",
+      "unlock_message": "DATABASE VAULT COMPROMISED. Structured Query Injection permitted arbitrary data extraction from underlying tables. Always enforce parameterized query binding.",
+      "hints": [
+        {
+          "id": "WEB-03-H1",
+          "text": "⚡ [HIGH PRIORITY INTEL // RECOVERED BACKEND QUERY]\nInternal database query architecture recovered from server telemetry:\nSELECT name, dept FROM employees WHERE name LIKE '%${q}%'\n\nThe search parameter 'q' is concatenated directly into the SQL statement without parameterized binding. Single quote delimiters (') can break out of the string literal.",
+          "cost": 8,
+          "order": 1
+        },
+        {
+          "id": "WEB-03-H2",
+          "text": "🎯 [TACTICAL EXPLOITATION INTEL // SECRETS EXTRACTION]\nInject SQL tautologies (such as ' OR '1'='1) or UNION SELECT statements to trigger database errors and dump hidden database tables. Inspect the extracted 'secrets' table records: the verification answer is stored in secrets.answer (decode the hex bytes if prefixed with 0x).",
+          "cost": 15,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": "https://oxraventest.com/search",
+      "endpoint": "https://oxraventest.com/search",
+      "target_route": "/search",
+      "http_method": "GET",
+      "target_parameter": "q (search query parameter)",
+      "cwe": "CWE-89 (In-Band SQL Injection / UNION Query Leak)",
+      "vulnerability": "SQL Injection",
+      "expected_answer_format": "UPPERCASE_WITH_UNDERSCORES (Plain text token)",
+      "expected_answer_guide": "Inspect the confidential database records exfiltrated through the search engine to recover the verification answer token.",
+      "mascot_hint": "Probe the directory search parameter. Unescaped inputs often reveal underlying database structures."
+    },
+    {
+      "id": "WEB-04",
+      "round": 2,
+      "name": "Cross-Site Scripting // Operations Forum Test",
+      "description": "### Target Endpoint & Scope\n- **Target URL:** `https://oxraventest.com/forums`\n- **Route:** `/forums` (Internal API: `POST /api/comments`)\n- **HTTP Method:** `POST`\n- **Parameters:** `comment-text` (Dispatch message body)\n- **Classification:** CWE-79 (Stored Cross-Site Scripting / Stored XSS)\n\n### Mission Scenario\n0xRAVEN personnel communicate tactical updates via the internal Operations Discussion Board at `https://oxraventest.com/forums`.\n\n### Mission Directive\n1. Open `https://oxraventest.com/forums` in the simulated browser.\n2. Audit the comment submission form to determine if user inputs are sanitized before rendering.\n3. Weaponize stored client-side script execution to intercept supervisory auditor credentials.\n\n### Expected Answer Guide\n- **Format:** Plain text token in uppercase with underscores (`TOKEN_NAME_FORMAT`).",
+      "difficulty": "easy",
+      "points": 50,
+      "flag": "XSS_STEALS_SESSIONS",
+      "order": 4,
+      "enabled": true,
+      "prerequisites": [
+        "WEB-03"
+      ],
+      "type": "web",
+      "unlock_message": "AUDITOR SESSION INTERCEPTED. Stored XSS allowed unauthorized script execution in the context of an administrative viewer, exposing sensitive session tokens.",
+      "hints": [
+        {
+          "id": "WEB-04-H1",
+          "text": "⚡ [HIGH PRIORITY INTEL // INJECTION VECTOR IDENTIFIED]\nThe forum backend at /api/comments stores user dispatches without HTML sanitization or Content Security Policy (CSP) headers. Any HTML/JavaScript payload submitted in the dispatch box (e.g. <script>alert(1)</script> or <img src=x onerror=alert(1)>) is stored and executed in subsequent reader sessions.",
+          "cost": 5,
+          "order": 1
+        },
+        {
+          "id": "WEB-04-H2",
+          "text": "🎯 [TACTICAL INTEL // AUDITOR HIJACK & TOKEN EXTRACTION]\nWhen your stored script executes in the automated auditor's browser session, a security incident alert triggers on the screen displaying the reviewer's captured session buffer. Inspect the Base64 token_b64 value in the alert and decode it to retrieve your verification answer.",
+          "cost": 10,
+          "order": 2
+        }
+      ],
+      "files": [],
+      "target_url": "https://oxraventest.com/forums",
+      "endpoint": "https://oxraventest.com/forums",
+      "target_route": "/forums",
+      "http_method": "POST",
+      "target_parameter": "comment-text",
+      "cwe": "CWE-79 (Stored Cross-Site Scripting / Stored XSS)",
+      "vulnerability": "Stored XSS",
+      "expected_answer_format": "UPPERCASE_WITH_UNDERSCORES (Plain text token)",
+      "expected_answer_guide": "Execute stored script injection on the discussion board to intercept the supervisory auditor's session context and retrieve the verification token.",
+      "mascot_hint": "Test input sanitization on the forum comment box. Can unescaped markup or script tags be stored and rendered?"
+    },
+    {
+      "id": "CODE-01",
+      "round": 3,
+      "name": "Snippet 01 // Dynamic Query Telemetry",
+      "description": "Inspect this Flask database telemetry service. The developer attempted to sanitize input, but introduced a critical vulnerability.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "SQL_INJECTION",
+      "acceptable_answers": [
+        "SQL_INJECTION",
+        "SQL INJECTION",
+        "SQLI",
+        "ORDER_BY_SQL_INJECTION",
+        "ORDER BY SQL INJECTION",
+        "FLAG{SQL_INJECTION}"
+      ],
+      "order": 1,
+      "enabled": true,
+      "prerequisites": [
+        "WEB-04"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "@app.route(\"/api/v1/telemetry/events\", methods=[\"GET\"])\ndef query_security_events():\n    event_type = request.args.get(\"type\", \"AUTH_FAILURE\")\n    order_column = request.args.get(\"sort_by\", \"timestamp\")\n    direction = request.args.get(\"dir\", \"DESC\")\n    limit = int(request.args.get(\"limit\", 25))\n\n    # Parameterization applied to filter values\n    base_sql = \"\"\"\n        SELECT event_id, target_service, severity, raw_payload, timestamp\n        FROM system_audit_events\n        WHERE event_type = %s AND severity IN ('WARN', 'CRIT')\n    \"\"\"\n    params = [event_type]\n\n    # Dynamic identifier interpolation in the ORDER BY clause\n    sql = f\"{base_sql} ORDER BY {order_column} {direction} LIMIT {limit}\"\n\n    cursor = db_pool.get_cursor()\n    cursor.execute(sql, params)\n    return jsonify({\"events\": cursor.fetchall()})",
+      "code_context": "The service queries an internal PostgreSQL audit database. The developer assumed %s parameterization in execute() prevents all SQL injection.",
+      "question": "What security vulnerability is present in this code?",
+      "options": [
+        "Broken Authentication",
+        "SQL Injection",
+        "Hardcoded Secret",
+        "Cross-Site Scripting (XSS)"
+      ],
+      "correct_option": 1,
+      "explanation": "SQL Injection — Even though 'event_type' uses %s parameterization, 'order_column' and 'direction' are directly interpolated into the query string using Python f-strings. In SQL, query parameters can only substitute literal data values, never table identifiers, column names, or clauses. Without an allowlist for sort_by columns, an attacker can inject arbitrary SQL clauses or conditional subqueries.",
+      "unlock_message": "Vulnerability verified! Stage 3 progress initiated.",
+      "hints": [
+        {
+          "id": "CODE-01-H1",
+          "text": "⚡ [TACTICAL INTEL] Check what can be parameterized in SQL. Can placeholders substitute column names in an ORDER BY clause?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at how order_column and direction are concatenated into the SQL statement."
+    },
+    {
+      "id": "CODE-02",
+      "round": 3,
+      "name": "Snippet 02 // Multi-Tenant Firewall Policy",
+      "description": "Inspect this microservice API endpoint responsible for managing tenant firewall policies.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "BROKEN_ACCESS_CONTROL",
+      "acceptable_answers": [
+        "BROKEN_ACCESS_CONTROL",
+        "BROKEN ACCESS CONTROL",
+        "BOLA",
+        "AUTHORIZATION_BYPASS",
+        "MISSING_TENANT_CHECK",
+        "FLAG{BROKEN_ACCESS_CONTROL}"
+      ],
+      "order": 2,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-01"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "@app.route(\"/api/v1/organizations/<org_id>/firewall-rules\", methods=[\"PUT\"])\ndef update_firewall_policy(org_id):\n    token = request.headers.get(\"X-Session-Token\", \"\")\n    session_user = auth_service.validate_session(token)\n    \n    # Check 1: User must have an active authenticated session\n    if not session_user or not session_user.is_active:\n        return jsonify({\"error\": \"Valid authentication session required\"}), 401\n        \n    # Check 2: User must hold the 'SecurityAdmin' role\n    if \"SecurityAdmin\" not in session_user.roles:\n        return jsonify({\"error\": \"SecurityAdmin role clearance required\"}), 403\n\n    payload = request.get_json()\n    if not validate_firewall_schema(payload):\n        return jsonify({\"error\": \"Invalid firewall policy schema\"}), 400\n\n    # Persist the firewall rules for the requested organization\n    audit_logger.record(session_user.id, f\"Updated firewall policy for org {org_id}\")\n    storage.persist_firewall_rules(org_id, payload)\n    \n    return jsonify({\"status\": \"policy_applied\", \"org_id\": org_id})",
+      "code_context": "This microservice manages security configurations for hundreds of isolated enterprise tenants sharing a unified backend.",
+      "question": "What security vulnerability is present in this code?",
+      "options": [
+        "Broken Access Control",
+        "SQL Injection",
+        "Cross-Site Scripting (XSS)",
+        "Hardcoded Secret"
+      ],
+      "correct_option": 0,
+      "explanation": "Broken Access Control — The route checks that the user is authenticated and holds the 'SecurityAdmin' role, but never verifies whether 'session_user.org_id' matches the requested '<org_id>' in the route. A valid SecurityAdmin of Tenant A can modify the firewall rules of any other tenant (Tenant B, Tenant C) simply by supplying a different org_id in the URL path.",
+      "unlock_message": "Vulnerability verified! Second code finding cataloged.",
+      "hints": [
+        {
+          "id": "CODE-02-H1",
+          "text": "⚡ [TACTICAL INTEL] The user is authenticated and has the admin role, but which organization do they actually belong to?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check whether the user's authorized organization matches the org_id parameter in the route URL."
+    },
+    {
+      "id": "CODE-03",
+      "round": 3,
+      "name": "Snippet 03 // Webhook Cryptographic Verification",
+      "description": "Inspect this payment settlement webhook signature verification logic.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "HARDCODED_PASSWORD",
+      "acceptable_answers": [
+        "HARDCODED_PASSWORD",
+        "HARDCODED PASSWORD",
+        "HARDCODED_SECRET",
+        "HARDCODED SECRET",
+        "EMBEDDED_KEY",
+        "FALLBACK_SECRET",
+        "FLAG{HARDCODED_PASSWORD}"
+      ],
+      "order": 3,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-02"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const crypto = require('crypto');\nconst express = require('express');\nconst router = express.Router();\n\n// Fallback HMAC signing secret for internal dev & staging clusters\nconst DEFAULT_GATEWAY_SECRET = \"sk_live_prod_0xRAVEN_master_hmac_9982410a7b\";\n\nfunction verifyGatewaySignature(rawBody, signatureHeader) {\n  // Use environment key if defined, otherwise fall back to internal key\n  const signingKey = process.env.PAYMENT_GATEWAY_SECRET || DEFAULT_GATEWAY_SECRET;\n  \n  const expectedSignature = crypto\n    .createHmac('sha256', signingKey)\n    .update(rawBody)\n    .digest('hex');\n\n  // Constant-time comparison to prevent timing side-channel attacks\n  return crypto.timingSafeEqual(\n    Buffer.from(signatureHeader || '', 'utf8'),\n    Buffer.from(expectedSignature, 'utf8')\n  );\n}\n\nrouter.post('/webhooks/payment-settlement', (req, res) => {\n  const signature = req.headers['x-gateway-signature'];\n  if (!verifyGatewaySignature(req.rawBody, signature)) {\n    return res.status(403).json({ error: 'Signature verification failed' });\n  }\n\n  processPaymentConfirmation(req.body);\n  return res.status(200).json({ status: 'settled' });\n});",
+      "code_context": "This microservice processes asynchronous payment confirmations from an external billing provider.",
+      "question": "What is the security problem in this code?",
+      "options": [
+        "SQL Injection",
+        "Hardcoded Password / Secret",
+        "Insecure Direct Object Reference (IDOR)",
+        "Cross-Site Scripting (XSS)"
+      ],
+      "correct_option": 1,
+      "explanation": "Hardcoded Password / Secret — The codebase contains a hardcoded fallback cryptographic secret ('sk_live_prod_0xRAVEN_master_hmac_9982410a7b'). If the PAYMENT_GATEWAY_SECRET environment variable is unset, misconfigured, or running in an environment without the env var, anyone who can read the source repository can forge valid HMAC signatures and execute fraudulent payment settlement webhooks.",
+      "unlock_message": "Vulnerability verified! Cryptographic secret flaw detected.",
+      "hints": [
+        {
+          "id": "CODE-03-H1",
+          "text": "⚡ [TACTICAL INTEL] What value is used when process.env.PAYMENT_GATEWAY_SECRET is not configured?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Inspect line 6 where DEFAULT_GATEWAY_SECRET is declared directly in the source file."
+    },
+    {
+      "id": "CODE-04",
+      "round": 3,
+      "name": "Snippet 04 // Customer Invoice Document Retrieval",
+      "description": "Inspect this Express route handler that streams billing statements and financial reports.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "IDOR",
+      "acceptable_answers": [
+        "IDOR",
+        "BOLA",
+        "INSECURE_DIRECT_OBJECT_REFERENCE",
+        "INSECURE DIRECT OBJECT REFERENCE",
+        "BROKEN_OBJECT_LEVEL_AUTHORIZATION",
+        "FLAG{IDOR}"
+      ],
+      "order": 4,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-03"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const express = require('express');\nconst router = express.Router();\nconst { requireAuth } = require('../middleware/authGuard');\nconst { InvoiceRepository, StorageService } = require('../services/billing');\n\n// Endpoint: Export customer billing statement\nrouter.get('/api/billing/statement', requireAuth, async (req, res) => {\n  try {\n    const documentId = req.query.doc_id;\n    const format = req.query.format || 'pdf';\n\n    // Query database for invoice record using client-supplied document ID\n    const invoice = await InvoiceRepository.findByPk(documentId);\n    if (!invoice) {\n      return res.status(404).json({ error: 'Statement record not found' });\n    }\n\n    // Stream the customer financial document\n    const fileStream = await StorageService.fetchStream(invoice.storageKey);\n    res.setHeader('Content-Type', format === 'pdf' ? 'application/pdf' : 'text/csv');\n    res.setHeader('Content-Disposition', `inline; filename=\"statement_${documentId}.${format}\"`);\n    return fileStream.pipe(res);\n  } catch (error) {\n    return res.status(500).json({ error: 'Internal document streaming failure' });\n  }\n});",
+      "code_context": "This endpoint provides authenticated PDF and CSV exports of monthly financial billing statements.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Insecure Direct Object Reference (IDOR)",
+        "SQL Injection",
+        "Cross-Site Scripting (XSS)",
+        "Cross-Site Request Forgery (CSRF)"
+      ],
+      "correct_option": 0,
+      "explanation": "Insecure Direct Object Reference (IDOR) — Although the route requires authentication (requireAuth), it fetches and streams any invoice document matching 'req.query.doc_id' without verifying that 'invoice.accountId' matches 'req.user.accountId'. Any logged-in customer can download another organization's confidential invoices by incrementing or supplying other doc_id parameters.",
+      "unlock_message": "Vulnerability verified! Stage 3 final challenge accessible.",
+      "hints": [
+        {
+          "id": "CODE-04-H1",
+          "text": "⚡ [TACTICAL INTEL] The user is logged in, but where does the code check whether this specific invoice belongs to them?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check what happens if a logged-in user changes doc_id to another customer's document ID."
+    },
+    {
+      "id": "CODE-05",
+      "round": 3,
+      "name": "Snippet 05 // Forensic Security Debrief",
+      "description": "Final forensic challenge: Inspect this microservice route handler and provide a security assessment.",
+      "difficulty": "medium",
+      "points": 20,
+      "flag": "IDOR",
+      "acceptable_answers": [
+        "IDOR",
+        "BOLA",
+        "INSECURE_DIRECT_OBJECT_REFERENCE",
+        "INSECURE DIRECT OBJECT REFERENCE",
+        "BROKEN_OBJECT_LEVEL_AUTHORIZATION",
+        "BROKEN OBJECT LEVEL AUTHORIZATION",
+        "BROKEN_ACCESS_CONTROL",
+        "BROKEN ACCESS CONTROL",
+        "IDOR / BROKEN OBJECT-LEVEL AUTHORIZATION"
+      ],
+      "order": 5,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-04"
+      ],
+      "type": "code_analysis",
+      "code_lang": "python",
+      "code_snippet": "@app.route(\"/account\")\ndef account():\n    user_id = request.args.get(\"id\")\n    if session.get(\"logged_in\"):\n        return database.get_user(user_id)\n    return \"Login required\"",
+      "code_context": null,
+      "question": "Identify which line contains the vulnerability and what kind of vulnerability is present.",
+      "explanation": "Line 5 (`return database.get_user(user_id)`) fetches and returns account data directly from the query parameter without verifying if the logged-in user is authorized to access that ID. This is an Insecure Direct Object Reference (IDOR / BOLA).",
+      "unlock_message": "🎉 OPERATION 0xRAVEN COMPLETE! You have audited all threat actor signatures, infiltrated the live web perimeter, and reviewed vulnerable service source code. Master Operative Clearance granted.",
+      "hints": [
+        {
+          "id": "CODE-05-H1",
+          "text": "⚡ [TACTICAL INTEL] Any user with `session.get('logged_in')` can pass arbitrary `id` values to `database.get_user(user_id)`. What is this vulnerability called?",
+          "cost": 3,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check what happens when a logged-in user passes another user's ID into the query parameter.",
+      "vulnerable_line": 5,
+      "acceptable_lines": [
+        3,
+        4,
+        5
+      ],
+      "vulnerability_type": "IDOR"
+    },
+    {
+      "id": "CODE-06",
+      "round": 3,
+      "name": "Snippet 06 // Remote Avatar Asset Ingestion",
+      "description": "Inspect this Express controller that downloads remote user avatars and saves them to internal storage.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "SSRF",
+      "acceptable_answers": [
+        "SSRF",
+        "SERVER_SIDE_REQUEST_FORGERY",
+        "SERVER SIDE REQUEST FORGERY",
+        "FLAG{SSRF}"
+      ],
+      "order": 6,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-05"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const express = require('express');\nconst axios = require('axios');\nconst fs = require('fs');\nconst path = require('path');\nconst router = express.Router();\nconst { requireAuth } = require('../middleware/authGuard');\n\nrouter.post('/api/profile/sync-avatar', requireAuth, async (req, res) => {\n  try {\n    const { avatarUrl } = req.body;\n    if (!avatarUrl || !avatarUrl.startsWith('http')) {\n      return res.status(400).json({ error: 'Valid HTTP avatar URL required' });\n    }\n\n    // Download image from user-supplied URL and buffer to disk\n    const response = await axios.get(avatarUrl, {\n      responseType: 'arraybuffer',\n      timeout: 3000\n    });\n\n    const filename = `avatar_${req.user.id}_${Date.now()}.png`;\n    const destination = path.join(__dirname, '../public/avatars', filename);\n    await fs.promises.writeFile(destination, response.data);\n\n    return res.status(200).json({ status: 'synced', url: `/avatars/${filename}` });\n  } catch (err) {\n    return res.status(500).json({ error: 'Failed to retrieve remote avatar image' });\n  }\n});",
+      "code_context": "This microservice allows authenticated team members to import avatar images from third-party profile services.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Server-Side Request Forgery (SSRF)",
+        "Cross-Site Scripting (XSS)",
+        "SQL Injection",
+        "Broken Authentication"
+      ],
+      "correct_option": 0,
+      "explanation": "Server-Side Request Forgery (SSRF) — The endpoint fetches arbitrary user-supplied URLs ('axios.get(avatarUrl)') without restricting requests to external public IP addresses. An attacker can supply internal URLs such as 'http://169.254.169.254/latest/meta-data/' to steal cloud credentials, or 'http://localhost:6379' / 'http://10.0.0.1' to probe internal network services behind the firewall.",
+      "unlock_message": "Vulnerability identified! SSRF vector neutralized.",
+      "hints": [
+        {
+          "id": "CODE-06-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if avatarUrl points to http://169.254.169.254 or http://127.0.0.1:8080?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check what IP addresses the server is allowed to connect to when downloading the avatar."
+    },
+    {
+      "id": "CODE-07",
+      "round": 3,
+      "name": "Snippet 07 // Financial Audit Report Dispatcher",
+      "description": "Review this Flask endpoint that streams generated monthly compliance reports to enterprise auditors.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "PATH_TRAVERSAL",
+      "acceptable_answers": [
+        "PATH_TRAVERSAL",
+        "PATH TRAVERSAL",
+        "DIRECTORY_TRAVERSAL",
+        "DIRECTORY TRAVERSAL",
+        "LFI",
+        "LOCAL_FILE_INCLUSION",
+        "FLAG{PATH_TRAVERSAL}"
+      ],
+      "order": 7,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-06"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "import os\nfrom flask import Blueprint, request, send_file, jsonify\nfrom auth import require_role\n\nreports_bp = Blueprint('reports', __name__)\nEXPORT_DIRECTORY = \"/var/app/storage/generated_reports\"\n\n@reports_bp.route(\"/api/reports/download\", methods=[\"GET\"])\n@require_role(\"compliance_officer\")\ndef download_compliance_report():\n    report_filename = request.args.get(\"filename\")\n    if not report_filename:\n        return jsonify({\"error\": \"Missing filename parameter\"}), 400\n\n    # Locate report file on host filesystem and stream to client\n    full_path = os.path.join(EXPORT_DIRECTORY, report_filename)\n    if not os.path.exists(full_path):\n        return jsonify({\"error\": \"Report does not exist on disk\"}), 404\n\n    return send_file(full_path, as_attachment=True)",
+      "code_context": "This microservice exposes an authenticated document download portal for audit archives.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Path Traversal (Directory Traversal)",
+        "Insecure Deserialization",
+        "Cross-Site Request Forgery (CSRF)",
+        "Hardcoded Secret"
+      ],
+      "correct_option": 0,
+      "explanation": "Path Traversal (Directory Traversal) — 'os.path.join(EXPORT_DIRECTORY, report_filename)' does not prevent directory escape sequences. If a user supplies 'filename=../../../../etc/passwd' or '../../app/config.py', os.path.join resolves outside the intended export directory, allowing authorized officers to read arbitrary files from the server host filesystem.",
+      "unlock_message": "Vulnerability identified! Arbitrary file read prevented.",
+      "hints": [
+        {
+          "id": "CODE-07-H1",
+          "text": "⚡ [TACTICAL INTEL] Does os.path.join strip '../' dot-dot-slash sequences from filename?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at how report_filename is combined with EXPORT_DIRECTORY."
+    },
+    {
+      "id": "CODE-08",
+      "round": 3,
+      "name": "Snippet 08 // Edge Gateway Ping Telemetry",
+      "description": "Audit this Python network diagnostics utility that checks latency against remote cluster endpoints.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "COMMAND_INJECTION",
+      "acceptable_answers": [
+        "COMMAND_INJECTION",
+        "COMMAND INJECTION",
+        "OS_COMMAND_INJECTION",
+        "OS COMMAND INJECTION",
+        "RCE",
+        "REMOTE_CODE_EXECUTION",
+        "FLAG{COMMAND_INJECTION}"
+      ],
+      "order": 8,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-07"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "import subprocess\nfrom flask import Blueprint, request, jsonify\nfrom auth import require_admin\n\nnet_bp = Blueprint('network', __name__)\n\n@net_bp.route(\"/api/admin/diagnostics/ping\", methods=[\"POST\"])\n@require_admin\ndef run_ping_diagnostics():\n    host = request.json.get(\"host\", \"\").strip()\n    if not host:\n        return jsonify({\"error\": \"Host target parameter is required\"}), 400\n\n    try:\n        # Execute ICMP echo request using host system utilities\n        cmd = f\"ping -c 2 -W 3 {host}\"\n        output = subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT)\n        return jsonify({\"target\": host, \"telemetry\": output})\n    except subprocess.CalledProcessError as err:\n        return jsonify({\"target\": host, \"error\": err.output}), 500",
+      "code_context": "This internal diagnostic utility enables network engineers to test reachability across hybrid nodes.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "OS Command Injection",
+        "Cross-Site Scripting (XSS)",
+        "Prototype Pollution",
+        "Open Redirect"
+      ],
+      "correct_option": 0,
+      "explanation": "OS Command Injection — The code constructs a shell command with Python f-strings ('ping -c 2 -W 3 {host}') and passes it directly to 'subprocess.check_output(cmd, shell=True)'. An attacker can provide a payload such as '8.8.8.8; cat /etc/shadow' or '8.8.8.8 | id' to execute arbitrary operating system commands with the privileges of the web application server.",
+      "unlock_message": "Vulnerability identified! Shell command injection blocked.",
+      "hints": [
+        {
+          "id": "CODE-08-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens when shell=True is paired with unescaped f-string interpolation?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check shell=True in subprocess.check_output with unvalidated input."
+    },
+    {
+      "id": "CODE-09",
+      "round": 3,
+      "name": "Snippet 09 // Bearer JWT Session Introspection",
+      "description": "Inspect this Express authentication middleware that verifies incoming JSON Web Tokens.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "INSECURE_JWT",
+      "acceptable_answers": [
+        "INSECURE_JWT",
+        "INSECURE JWT",
+        "INSECURE_JWT_ALGORITHM",
+        "JWT_NONE_ALGORITHM",
+        "JWT NONE ALGORITHM",
+        "BROKEN_AUTHENTICATION",
+        "FLAG{INSECURE_JWT}"
+      ],
+      "order": 9,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-08"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const jwt = require('jsonwebtoken');\n\nfunction authenticateGatewayToken(req, res, next) {\n  const authHeader = req.headers['authorization'];\n  if (!authHeader || !authHeader.startsWith('Bearer ')) {\n    return res.status(401).json({ error: 'Missing bearer credentials' });\n  }\n\n  const tokenString = authHeader.split(' ')[1];\n  \n  // Decode unverified token header to inspect signing parameters\n  const decodedHeader = jwt.decode(tokenString, { complete: true })?.header;\n  if (!decodedHeader) {\n    return res.status(400).json({ error: 'Malformed token payload' });\n  }\n\n  // Support development testing tokens without signing verification\n  if (decodedHeader.alg === 'none' || !decodedHeader.alg) {\n    const unsignedClaims = jwt.decode(tokenString);\n    req.user = unsignedClaims;\n    return next();\n  }\n\n  // Enforce cryptographic verification for signed production tokens\n  jwt.verify(tokenString, process.env.JWT_SECRET_KEY, (err, user) => {\n    if (err) return res.status(403).json({ error: 'Invalid JWT signature' });\n    req.user = user;\n    next();\n  });\n}",
+      "code_context": "This Express middleware validates JWT claims for microservice RPC requests.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Insecure JWT Algorithm ('none' algorithm accepted)",
+        "SQL Injection",
+        "Server-Side Request Forgery (SSRF)",
+        "XML External Entity (XXE)"
+      ],
+      "correct_option": 0,
+      "explanation": "Insecure JWT Algorithm ('none' accepted) — The middleware explicitly trusts tokens whose header specifies 'alg: \"none\"' without verifying any cryptographic signature. Any unauthorized attacker can construct a token containing '\"role\": \"admin\"' and '\"alg\": \"none\"', completely bypassing signature verification and escalating to full administrative privileges.",
+      "unlock_message": "Vulnerability identified! JWT forgery vector disabled.",
+      "hints": [
+        {
+          "id": "CODE-09-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if an attacker crafts a token with {\"alg\": \"none\"}?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at lines 17-21 where decodedHeader.alg === 'none' bypasses verification."
+    },
+    {
+      "id": "CODE-10",
+      "round": 3,
+      "name": "Snippet 10 // Customer Referral Greeting Banner",
+      "description": "Inspect this client-side JavaScript module that displays referral promotion banners.",
+      "difficulty": "beginner",
+      "points": 15,
+      "flag": "XSS",
+      "acceptable_answers": [
+        "XSS",
+        "DOM_XSS",
+        "DOM XSS",
+        "CROSS_SITE_SCRIPTING",
+        "CROSS SITE SCRIPTING",
+        "DOM_BASED_XSS",
+        "FLAG{XSS}"
+      ],
+      "order": 10,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-09"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "// Client-side Campaign Greeting Script: referral.js\ndocument.addEventListener('DOMContentLoaded', () => {\n  const urlParams = new URLSearchParams(window.location.search);\n  const referralPartner = urlParams.get('partner');\n  const greetingElement = document.getElementById('referral-greeting');\n\n  if (referralPartner && greetingElement) {\n    // Render personalized promotional welcome banner\n    greetingElement.innerHTML = \n      '<div class=\"banner-inner\">' +\n      '  <span class=\"icon\">🎉</span>' +\n      '  <p>Welcome! You were referred by our elite partner: <strong>' + \n      referralPartner + \n      '</strong></p>' +\n      '</div>';\n  }\n});",
+      "code_context": "This client-side script parses marketing affiliate tags from the browser query string and updates the landing banner.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "DOM-based Cross-Site Scripting (DOM XSS)",
+        "Cross-Site Request Forgery (CSRF)",
+        "Broken Object Level Authorization",
+        "Hardcoded Password"
+      ],
+      "correct_option": 0,
+      "explanation": "DOM-based Cross-Site Scripting (DOM XSS) — The script reads 'partner' directly from 'window.location.search' and concatenates it into 'innerHTML' without sanitization or HTML entity encoding. An attacker can craft a link like 'page.html?partner=<img src=x onerror=alert(document.cookie)>' to execute arbitrary JavaScript in the victim's session.",
+      "unlock_message": "Vulnerability identified! DOM XSS vector remediated.",
+      "hints": [
+        {
+          "id": "CODE-10-H1",
+          "text": "⚡ [TACTICAL INTEL] What property is greetingElement using to render the unescaped referralPartner string?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check innerHTML being assigned directly with URLSearchParams data."
+    },
+    {
+      "id": "CODE-11",
+      "round": 3,
+      "name": "Snippet 11 // Distributed User State Cache",
+      "description": "Review this Python session caching utility that serializes state into fast cache buffers.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "INSECURE_DESERIALIZATION",
+      "acceptable_answers": [
+        "INSECURE_DESERIALIZATION",
+        "INSECURE DESERIALIZATION",
+        "PICKLE_DESERIALIZATION",
+        "DESERIALIZATION_VULNERABILITY",
+        "PYTHON_PICKLE",
+        "FLAG{INSECURE_DESERIALIZATION}"
+      ],
+      "order": 11,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-10"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "import base64\nimport pickle\nfrom flask import Blueprint, request, jsonify\n\ncache_bp = Blueprint('cache', __name__)\n\n@cache_bp.route(\"/api/session/state/restore\", methods=[\"POST\"])\ndef restore_session_state():\n    encoded_state = request.cookies.get(\"session_state_blob\")\n    if not encoded_state:\n        return jsonify({\"error\": \"No serialized session blob found\"}), 400\n\n    try:\n        # Decode base64 payload and unpack state using Python pickle\n        raw_bytes = base64.b64decode(encoded_state)\n        user_state = pickle.loads(raw_bytes)\n        \n        return jsonify({\n            \"status\": \"restored\",\n            \"username\": user_state.get(\"username\"),\n            \"preferences\": user_state.get(\"preferences\")\n        })\n    except Exception as err:\n        return jsonify({\"error\": \"Corrupted session state\"}), 500",
+      "code_context": "This microservice unpacks serialized client state cookies across stateless cluster workers.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Insecure Deserialization (Remote Code Execution)",
+        "SQL Injection",
+        "Path Traversal",
+        "Missing Rate Limiting"
+      ],
+      "correct_option": 0,
+      "explanation": "Insecure Deserialization (Remote Code Execution) — 'pickle.loads()' must never be used on untrusted user data. Python's pickle format allows arbitrary object reconstruction, enabling attackers to craft a malicious payload utilizing '__reduce__()' to execute arbitrary operating system commands (RCE) on the server when unpacked.",
+      "unlock_message": "Vulnerability identified! Dangerous pickle deserialization eliminated.",
+      "hints": [
+        {
+          "id": "CODE-11-H1",
+          "text": "⚡ [TACTICAL INTEL] Why is Python's standard `pickle` library unsafe for untrusted user inputs?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at pickle.loads(raw_bytes) on cookie data."
+    },
+    {
+      "id": "CODE-12",
+      "round": 3,
+      "name": "Snippet 12 // B2B Supply Chain XML Dispatcher",
+      "description": "Inspect this electronic invoice ingestion handler that parses XML manifests.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "XXE",
+      "acceptable_answers": [
+        "XXE",
+        "XML_EXTERNAL_ENTITY",
+        "XML EXTERNAL ENTITY",
+        "XML_EXTERNAL_ENTITY_INJECTION",
+        "XXE_INJECTION",
+        "FLAG{XXE}"
+      ],
+      "order": 12,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-11"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "from lxml import etree\nfrom flask import Blueprint, request, jsonify\n\nxml_bp = Blueprint('xml_orders', __name__)\n\n@xml_bp.route(\"/api/orders/import-xml\", methods=[\"POST\"])\ndef import_supplier_order():\n    xml_data = request.data\n    if not xml_data:\n        return jsonify({\"error\": \"Empty XML body\"}), 400\n\n    try:\n        # Configure parser with DTD and external entity resolution enabled\n        parser = etree.XMLParser(\n            resolve_entities=True,\n            load_dtd=True,\n            no_network=False\n        )\n        root = etree.fromstring(xml_data, parser=parser)\n        \n        supplier = root.findtext(\"supplier_id\")\n        amount = root.findtext(\"total_amount\")\n        return jsonify({\"status\": \"imported\", \"supplier\": supplier, \"amount\": amount})\n    except etree.XMLSyntaxError as err:\n        return jsonify({\"error\": \"Invalid XML structure\"}), 400",
+      "code_context": "This microservice receives bulk XML purchase orders from verified vendor supply channels.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "XML External Entity (XXE) Injection",
+        "Server-Side Request Forgery (SSRF)",
+        "Cross-Site Request Forgery (CSRF)",
+        "Prototype Pollution"
+      ],
+      "correct_option": 0,
+      "explanation": "XML External Entity (XXE) Injection — The parser explicitly enables 'resolve_entities=True' and 'load_dtd=True'. An attacker can define a custom DOCTYPE entity such as '<!ENTITY xxe SYSTEM \"file:///etc/passwd\">' or a remote URL, forcing the server to read local sensitive files or initiate outbound internal network requests.",
+      "unlock_message": "Vulnerability identified! XXE entity resolution mitigated.",
+      "hints": [
+        {
+          "id": "CODE-12-H1",
+          "text": "⚡ [TACTICAL INTEL] Check the XMLParser options: what does resolve_entities=True allow an attacker to do?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at resolve_entities=True and load_dtd=True in etree.XMLParser."
+    },
+    {
+      "id": "CODE-13",
+      "round": 3,
+      "name": "Snippet 13 // Promotional Coupon Voucher Engine",
+      "description": "Audit this e-commerce discount code redemption service for concurrency vulnerabilities.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "RACE_CONDITION",
+      "acceptable_answers": [
+        "RACE_CONDITION",
+        "RACE CONDITION",
+        "TOCTOU",
+        "CONCURRENCY_FLAW",
+        "TIME_OF_CHECK_TIME_OF_USE",
+        "FLAG{RACE_CONDITION}"
+      ],
+      "order": 13,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-12"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "from flask import Blueprint, request, jsonify, session\nfrom models import db, Coupon, UserAccount\n\ncoupon_bp = Blueprint('coupon', __name__)\n\n@coupon_bp.route(\"/api/checkout/apply-coupon\", methods=[\"POST\"])\ndef apply_single_use_coupon():\n    code = request.json.get(\"code\")\n    user_id = session.get(\"user_id\")\n\n    # Time of Check: Query coupon record\n    coupon = Coupon.query.filter_by(code=code).first()\n    if not coupon or coupon.is_redeemed:\n        return jsonify({\"error\": \"Coupon code invalid or already claimed\"}), 400\n\n    # Simulate third-party loyalty credit authorization\n    credit_amount = coupon.discount_value\n    UserAccount.add_store_credit(user_id, credit_amount)\n\n    # Time of Use: Mark coupon redeemed after credit added\n    coupon.is_redeemed = True\n    db.session.commit()\n\n    return jsonify({\"status\": \"applied\", \"discount\": credit_amount})",
+      "code_context": "This microservice manages one-time promotional discount vouchers for customer checkouts.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Race Condition (Time-of-Check to Time-of-Use)",
+        "SQL Injection",
+        "Hardcoded Secret",
+        "Weak Cryptography"
+      ],
+      "correct_option": 0,
+      "explanation": "Race Condition (Time-of-Check to Time-of-Use / TOCTOU) — The function checks 'if not coupon.is_redeemed' and updates 'coupon.is_redeemed = True' in separate, un-isolated steps without database-level row locking ('with_for_update()') or an atomic state update. Sending parallel concurrent HTTP requests allows the single-use voucher to be credited multiple times before the first transaction commits.",
+      "unlock_message": "Vulnerability identified! Concurrency race condition detected.",
+      "hints": [
+        {
+          "id": "CODE-13-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if 10 requests with the same coupon arrive at the exact same millisecond?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check the gap between checking coupon.is_redeemed and committing coupon.is_redeemed = True."
+    },
+    {
+      "id": "CODE-14",
+      "round": 3,
+      "name": "Snippet 14 // Recursive User Preference Deep Merge",
+      "description": "Analyze this Node.js utility that updates nested user workspace preferences.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "PROTOTYPE_POLLUTION",
+      "acceptable_answers": [
+        "PROTOTYPE_POLLUTION",
+        "PROTOTYPE POLLUTION",
+        "OBJECT_PROTOTYPE_POLLUTION",
+        "FLAG{PROTOTYPE_POLLUTION}"
+      ],
+      "order": 14,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-13"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "// Utility: recursiveDeepMerge.js\nfunction deepMergePreferences(target, source) {\n  for (const key of Object.keys(source)) {\n    if (source[key] instanceof Object && key in target) {\n      Object.assign(source[key], deepMergePreferences(target[key], source[key]));\n    }\n    // Directly mutate target object property\n    target[key] = source[key];\n  }\n  return target;\n}\n\n// Route handler\nrouter.post('/api/user/preferences', requireAuth, (req, res) => {\n  const userSettings = getUserSettings(req.user.id);\n  const patchPayload = req.body.settings;\n\n  // Merge client JSON payload into user settings\n  const merged = deepMergePreferences(userSettings, patchPayload);\n  saveUserSettings(req.user.id, merged);\n\n  res.json({ status: 'preferences_updated', settings: merged });\n});",
+      "code_context": "This utility merges incoming JSON preference fragments into existing user configuration trees.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Prototype Pollution",
+        "OS Command Injection",
+        "Cross-Site Scripting (XSS)",
+        "Path Traversal"
+      ],
+      "correct_option": 0,
+      "explanation": "Prototype Pollution — The recursive merge algorithm accesses keys directly ('target[key] = source[key]') without checking for forbidden property names like '__proto__' or 'constructor'. An attacker can send a JSON payload with '{\"__proto__\": {\"isAdmin\": true}}', polluting JavaScript's global Object prototype and affecting all objects in the Node.js runtime.",
+      "unlock_message": "Vulnerability identified! Prototype pollution vulnerability neutralized.",
+      "hints": [
+        {
+          "id": "CODE-14-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if source contains a key named '__proto__'?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at target[key] = source[key] without filtering __proto__."
+    },
+    {
+      "id": "CODE-15",
+      "round": 3,
+      "name": "Snippet 15 // Legacy Account Password Cryptography",
+      "description": "Review this Python user onboarding and credential hashing routine.",
+      "difficulty": "beginner",
+      "points": 15,
+      "flag": "WEAK_CRYPTOGRAPHY",
+      "acceptable_answers": [
+        "WEAK_CRYPTOGRAPHY",
+        "WEAK CRYPTOGRAPHY",
+        "WEAK_CRYPTO",
+        "WEAK_HASHING",
+        "INSECURE_HASHING",
+        "MD5",
+        "MD5_HASHING",
+        "FLAG{WEAK_CRYPTOGRAPHY}"
+      ],
+      "order": 15,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-14"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "import hashlib\nfrom flask import Blueprint, request, jsonify\nfrom models import db, User\n\nauth_bp = Blueprint('auth_legacy', __name__)\n\ndef hash_customer_password(plain_password):\n    # Hash incoming credential using standard MD5 digest\n    hasher = hashlib.md5()\n    hasher.update(plain_password.encode('utf-8'))\n    return hasher.hexdigest()\n\n@auth_bp.route(\"/api/v1/register\", methods=[\"POST\"])\ndef register_user():\n    username = request.json.get(\"username\", \"\").strip()\n    password = request.json.get(\"password\", \"\")\n\n    if len(password) < 8:\n        return jsonify({\"error\": \"Password too short\"}), 400\n\n    hashed_pw = hash_customer_password(password)\n    user = User(username=username, password_hash=hashed_pw)\n    db.session.add(user)\n    db.session.commit()\n\n    return jsonify({\"status\": \"created\", \"username\": username}), 201",
+      "code_context": "This microservice handles user registration and credential persistence.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Weak Cryptography / Insecure Password Hashing",
+        "Cross-Site Request Forgery (CSRF)",
+        "SQL Injection",
+        "Insecure Direct Object Reference (IDOR)"
+      ],
+      "correct_option": 0,
+      "explanation": "Weak Cryptography / Insecure Password Hashing — The application hashes passwords using plain, unsalted MD5 ('hashlib.md5()'). MD5 is extremely fast and has known collision weaknesses, meaning compromised database hashes can be cracked in seconds using standard precomputed rainbow tables or GPU brute-forcing. Secure password hashing functions like Argon2, bcrypt, or PBKDF2 must be used instead.",
+      "unlock_message": "Vulnerability identified! Insecure MD5 hashing flagged.",
+      "hints": [
+        {
+          "id": "CODE-15-H1",
+          "text": "⚡ [TACTICAL INTEL] Which hashing algorithm is being used to store user passwords in the database?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check hashlib.md5() without any salt or iteration stretching."
+    },
+    {
+      "id": "CODE-16",
+      "round": 3,
+      "name": "Snippet 16 // Security Profile Email Modification",
+      "description": "Inspect this Flask route handler that updates primary notification email addresses.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "CSRF",
+      "acceptable_answers": [
+        "CSRF",
+        "CROSS_SITE_REQUEST_FORGERY",
+        "CROSS SITE REQUEST FORGERY",
+        "FLAG{CSRF}"
+      ],
+      "order": 16,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-15"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "from flask import Blueprint, request, jsonify, session\nfrom models import db, User\n\nsettings_bp = Blueprint('settings', __name__)\n\n@settings_bp.route(\"/account/update-email\", methods=[\"POST\"])\ndef update_account_email():\n    # Authenticate user via ambient session cookie\n    user_id = session.get(\"authenticated_user_id\")\n    if not user_id:\n        return jsonify({\"error\": \"Unauthorized\"}), 401\n\n    new_email = request.form.get(\"email\")\n    if not new_email or \"@\" not in new_email:\n        return jsonify({\"error\": \"Invalid email address\"}), 400\n\n    user = User.query.get(user_id)\n    user.email = new_email\n    db.session.commit()\n\n    return jsonify({\"status\": \"email_updated\", \"email\": new_email})",
+      "code_context": "This endpoint allows logged-in users to update their primary account email address.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Cross-Site Request Forgery (CSRF)",
+        "Open Redirect",
+        "Server-Side Request Forgery (SSRF)",
+        "Broken Authentication"
+      ],
+      "correct_option": 0,
+      "explanation": "Cross-Site Request Forgery (CSRF) — The endpoint performs a sensitive state-changing operation (updating the account email) via POST without validating an anti-CSRF token or verifying Origin/Referer headers. If an authenticated user visits an attacker-controlled website containing a malicious auto-submitting form, the browser will automatically include the user's session cookie, silently re-binding the victim's account email to the attacker's email.",
+      "unlock_message": "Vulnerability identified! Anti-CSRF defense verified.",
+      "hints": [
+        {
+          "id": "CODE-16-H1",
+          "text": "⚡ [TACTICAL INTEL] Where is the anti-CSRF token verified in this state-changing POST endpoint?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Notice that this POST request relies only on session.get without checking any CSRF token."
+    },
+    {
+      "id": "CODE-17",
+      "round": 3,
+      "name": "Snippet 17 // SMS Two-Factor Code Confirmation",
+      "description": "Audit this 2FA verification route that validates temporary SMS security pins.",
+      "difficulty": "beginner",
+      "points": 15,
+      "flag": "MISSING_RATE_LIMITING",
+      "acceptable_answers": [
+        "MISSING_RATE_LIMITING",
+        "MISSING RATE LIMITING",
+        "BRUTE_FORCE",
+        "BRUTE FORCE",
+        "RATE_LIMITING",
+        "NO_RATE_LIMIT",
+        "FLAG{MISSING_RATE_LIMITING}"
+      ],
+      "order": 17,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-16"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const express = require('express');\nconst router = express.Router();\nconst { UserSession } = require('../models');\n\n// Endpoint: Validate 4-digit SMS OTP\nrouter.post('/api/auth/2fa/verify', async (req, res) => {\n  const { userId, code } = req.body;\n  \n  const userSession = await UserSession.findOne({ where: { userId, status: 'pending_2fa' } });\n  if (!userSession) {\n    return res.status(404).json({ error: 'No pending 2FA challenge' });\n  }\n\n  // Compare 4-digit numeric code with generated OTP\n  if (userSession.expectedOtp === String(code).trim()) {\n    userSession.status = 'authenticated';\n    await userSession.save();\n    return res.status(200).json({ status: 'success', token: userSession.generateToken() });\n  }\n\n  return res.status(401).json({ error: 'Incorrect verification code. Please try again.' });\n});",
+      "code_context": "This microservice checks short-lived 4-digit numeric OTP codes sent to users via SMS.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Missing Rate Limiting / Brute Force Susceptibility",
+        "SQL Injection",
+        "Prototype Pollution",
+        "XML External Entity (XXE)"
+      ],
+      "correct_option": 0,
+      "explanation": "Missing Rate Limiting / Brute Force Susceptibility — A 4-digit numeric OTP has only 10,000 possible combinations (0000–9999). Because this endpoint lacks rate limiting, attempt counters, and lockout thresholds, an attacker can write a simple automated script to test all 10,000 possibilities in a few seconds and completely bypass 2FA.",
+      "unlock_message": "Vulnerability identified! 2FA brute force vulnerability mitigated.",
+      "hints": [
+        {
+          "id": "CODE-17-H1",
+          "text": "⚡ [TACTICAL INTEL] How many attempts can an attacker make against this 4-digit code before being blocked?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Notice there is no counter tracking failed attempts or rate limiting."
+    },
+    {
+      "id": "CODE-18",
+      "round": 3,
+      "name": "Snippet 18 // Enterprise SSO Post-Login Redirector",
+      "description": "Inspect this single sign-on landing controller that redirects users after authentication.",
+      "difficulty": "beginner",
+      "points": 15,
+      "flag": "OPEN_REDIRECT",
+      "acceptable_answers": [
+        "OPEN_REDIRECT",
+        "OPEN REDIRECT",
+        "UNVALIDATED_REDIRECT",
+        "UNVALIDATED REDIRECT",
+        "URL_REDIRECT",
+        "FLAG{OPEN_REDIRECT}"
+      ],
+      "order": 18,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-17"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "from flask import Blueprint, request, redirect, render_template, session\nfrom auth import verify_credentials\n\nsso_bp = Blueprint('sso', __name__)\n\n@sso_bp.route(\"/sso/login\", methods=[\"POST\"])\ndef sso_login():\n    username = request.form.get(\"username\")\n    password = request.form.get(\"password\")\n    return_url = request.args.get(\"return_to\", \"/dashboard\")\n\n    if not verify_credentials(username, password):\n        return render_template(\"login.html\", error=\"Invalid credentials\")\n\n    session[\"user\"] = username\n\n    # Redirect authenticated operative to requested destination\n    return redirect(return_url)",
+      "code_context": "This microservice handles user login and forwards users back to their previously requested page.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Open Redirect",
+        "Path Traversal",
+        "Cross-Site Request Forgery (CSRF)",
+        "Insecure Direct Object Reference (IDOR)"
+      ],
+      "correct_option": 0,
+      "explanation": "Open Redirect — The endpoint accepts an arbitrary 'return_to' parameter from the query string and forwards the user with 'redirect(return_url)' without verifying that the URL is a relative path or belongs to a trusted domain. Attackers can use legitimate corporate domains to craft convincing phishing lures (e.g. 'https://trusted.com/sso/login?return_to=https://evil-credential-harvester.com').",
+      "unlock_message": "Vulnerability identified! Open redirect parameter validated.",
+      "hints": [
+        {
+          "id": "CODE-18-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if return_to is set to https://attacker.com?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at return redirect(return_url) where return_url comes straight from request.args."
+    },
+    {
+      "id": "CODE-19",
+      "round": 3,
+      "name": "Snippet 19 // Security Event Audit Logger",
+      "description": "Analyze this Python security event logger that writes failed authentication records to disk.",
+      "difficulty": "medium",
+      "points": 15,
+      "flag": "LOG_INJECTION",
+      "acceptable_answers": [
+        "LOG_INJECTION",
+        "LOG INJECTION",
+        "CRLF_INJECTION",
+        "CRLF INJECTION",
+        "LOG_FORGERY",
+        "LOG FORGERY",
+        "FLAG{LOG_INJECTION}"
+      ],
+      "order": 19,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-18"
+      ],
+      "type": "code_mcq",
+      "code_lang": "python",
+      "code_snippet": "import datetime\nfrom flask import Blueprint, request, jsonify\n\naudit_bp = Blueprint('audit', __name__)\nAUDIT_LOG_FILE = \"/var/log/app/security_audit.log\"\n\n@audit_bp.route(\"/api/auth/report-failure\", methods=[\"POST\"])\ndef record_login_failure():\n    username = request.form.get(\"username\", \"anonymous\")\n    client_ip = request.remote_addr\n    timestamp = datetime.datetime.utcnow().isoformat()\n\n    # Format log line and append to security audit log\n    log_line = f\"[{timestamp}] [AUTH_FAIL] Client IP: {client_ip} | Target User: {username}\\n\"\n    \n    with open(AUDIT_LOG_FILE, \"a\") as log_file:\n        log_file.write(log_line)\n\n    return jsonify({\"status\": \"logged\"})",
+      "code_context": "This microservice records audit logs for monitoring SIEM and compliance systems.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Log Injection / CRLF Injection",
+        "SQL Injection",
+        "OS Command Injection",
+        "DOM-based XSS"
+      ],
+      "correct_option": 0,
+      "explanation": "Log Injection / CRLF Injection — The endpoint concatenates untrusted user input ('username') directly into the audit log file without stripping carriage return ('\\r') or newline ('\\n') characters. An attacker can supply a username like 'admin\\n[2026-09-06T12:00:00] [AUTH_SUCCESS] Client IP: 127.0.0.1 | Target User: admin', forging false audit trails and confusing SIEM alerts.",
+      "unlock_message": "Vulnerability identified! CRLF log injection neutralized.",
+      "hints": [
+        {
+          "id": "CODE-19-H1",
+          "text": "⚡ [TACTICAL INTEL] What happens if the username contains a newline character (\\n)?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Look at how username is inserted into log_line without stripping newlines."
+    },
+    {
+      "id": "CODE-20",
+      "round": 3,
+      "name": "Snippet 20 // Centralized API Exception Responder",
+      "description": "Capstone Review: Audit this global error-handling middleware deployed on a production API gateway.",
+      "difficulty": "medium",
+      "points": 20,
+      "flag": "INFORMATION_DISCLOSURE",
+      "acceptable_answers": [
+        "INFORMATION_DISCLOSURE",
+        "INFORMATION DISCLOSURE",
+        "SENSITIVE_DATA_EXPOSURE",
+        "SENSITIVE DATA EXPOSURE",
+        "STACK_TRACE_LEAK",
+        "VERBOSE_ERROR",
+        "FLAG{INFORMATION_DISCLOSURE}"
+      ],
+      "order": 20,
+      "enabled": true,
+      "prerequisites": [
+        "CODE-19"
+      ],
+      "type": "code_mcq",
+      "code_lang": "javascript",
+      "code_snippet": "const express = require('express');\n\n// Global Express Exception Handling Middleware\nfunction globalErrorHandler(err, req, res, next) {\n  // Log internal diagnostic error to server console\n  console.error('[CRITICAL_ERROR]', err);\n\n  // Send detailed debugging diagnostic JSON back to client\n  res.status(err.status || 500).json({\n    success: false,\n    error: {\n      message: err.message,\n      name: err.name,\n      stack: err.stack,\n      sql_query: err.sql || null,\n      server_environment: {\n        node_version: process.version,\n        db_connection_uri: process.env.DATABASE_URL,\n        working_directory: process.cwd()\n      }\n    }\n  });\n}\n\nmodule.exports = globalErrorHandler;",
+      "code_context": "This centralized Express middleware handles uncaught errors across all production API routes.",
+      "question": "What vulnerability is present in this code?",
+      "options": [
+        "Sensitive Information Disclosure / Verbose Stack Trace",
+        "Prototype Pollution",
+        "Broken Object Level Authorization",
+        "Server-Side Request Forgery (SSRF)"
+      ],
+      "correct_option": 0,
+      "explanation": "Sensitive Information Disclosure / Verbose Stack Trace — The error handler sends raw internal debugging telemetry back to external clients, including stack traces, SQL query fragments, server filesystem paths, and database credentials ('process.env.DATABASE_URL'). In production, error responses must return generic error identifiers while logging details strictly to private server logs.",
+      "unlock_message": "🎉 CONGRATULATIONS OPERATIVE! All 20 Stage 3 Code Review challenges have been audited and conquered. You have achieved mastery in secure code auditing!",
+      "hints": [
+        {
+          "id": "CODE-20-H1",
+          "text": "⚡ [TACTICAL INTEL] What sensitive details are being returned in the JSON response when an error occurs?",
+          "cost": 2,
+          "order": 1
+        }
+      ],
+      "files": [],
+      "vulnerabilities": [],
+      "mascot_hint": "Check the response payload containing err.stack, err.sql, and process.env.DATABASE_URL."
+    }
+  ]
+};

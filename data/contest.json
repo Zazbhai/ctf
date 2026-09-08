@@ -1,0 +1,78 @@
+{
+  "contest": {
+    "id": "operation-raven-2026",
+    "title": "OPERATION 0xRAVEN",
+    "subtitle": "Classified Cyber Threat Intelligence & Adversarial Red Team Operation",
+    "tagline": "Rogue Operator Telemetry Intercepted. Track the Vector. Breach the Perimeter.",
+    "status": "active",
+    "start_time": "2026-09-05T10:00:00+05:30",
+    "end_time": "2026-09-05T18:00:00+05:30",
+    "leaderboard_visible": true,
+    "free_play_mode": false,
+    "story": {
+      "intro": "At 03:47 UTC, senior defense security architect '0xRAVEN' executed an evasive kill-switch and severed all network links. His operational workstations were wiped, but real-time SIGINT telemetry captured outbound encrypted bursts across illicit darknet exchange nodes. Agency intelligence confirms he left behind an adversarial trail: cryptographic relays, an unscrubbed corporate web application, and classified source repositories. Your task as lead cyber threat intelligence investigator is to reconstruct the exfiltration trail, breach his live targets, and neutralize the threat vector before his persistence beacons expire.",
+      "chapter1": "Phase 1: Open-source signals intelligence. 0xRAVEN deployed multi-layered cryptographic obfuscation across public code mirrors, orphaned commit histories, and radio sub-carriers. Isolate his signatures and reconstruct the primary attack vector.",
+      "chapter2": "Phase 2: Target perimeter engagement. The trail points directly to 0xRAVEN's corporate staging environment — oxraventest.com. Infiltrate the perimeter gateway, exploit IDOR in profile records, weaponize database injection, and escalate privileges to the administrative root.",
+      "chapter3": "Phase 3: Source artifact forensic audit. Recovered backend microservice source code contains severe zero-day vulnerabilities and architectural backdoors left in plain sight. Conduct a forensic SAST review to extract the master verification cipher.",
+      "outro": "Incident neutralized. All adversarial vectors have been audited, documented, and dismantled. 0xRAVEN's test of adversarial readiness is complete. You have demonstrated elite cyber warfare and offensive security mastery."
+    },
+    "suspect": {
+      "alias": "0xRAVEN",
+      "last_seen": "2026-09-02T03:47:00Z",
+      "last_known_message": "SIGINT INTERCEPT // PAYLOAD DUMP:\n[RAW-HEX-BURST]\n4E 6F 74 68 69 6E 67 20 69 73 20 68 69 64 64 65 6E",
+      "avatar_hint": "Operative Insignia: Corvus corax / Threat Actor 0xRAVEN",
+      "known_usernames": [
+        "nullbyte_47",
+        "0xRAVEN",
+        "r4ven_sec",
+        "the_nullbird"
+      ],
+      "known_platforms": [
+        "GitHub Enterprise Mirror",
+        "Tor Onion Relays",
+        "Encrypted SIGINT Channels"
+      ]
+    }
+  },
+  "rounds": [
+    {
+      "id": 1,
+      "slug": "osint",
+      "name": "ROUND 1 — SIGINT & OSINT",
+      "subtitle": "Signal Reconnaissance & Cryptanalysis",
+      "description": "Reconstruct 0xRAVEN's exfiltration footprint across intercepted darknet payloads, orphaned repository commit histories, and covert radio sub-carrier bursts.",
+      "icon": "🛰️",
+      "color": "#00F5FF",
+      "unlock_condition": null
+    },
+    {
+      "id": 2,
+      "slug": "web",
+      "name": "ROUND 2 — OFFENSIVE WEB CTF",
+      "subtitle": "Target Perimeter Infiltration",
+      "description": "Engage 0xRAVEN's live corporate test environment at oxraventest.com. Breach perimeter authentication, exploit IDOR dossier leaks, execute SQL injection, and hijack administrative sessions.",
+      "icon": "🌐",
+      "color": "#00FF88",
+      "unlock_condition": "complete_round_1"
+    },
+    {
+      "id": 3,
+      "slug": "code",
+      "name": "ROUND 3 — CODE AUDIT & SAST",
+      "subtitle": "Adversarial Source Code Forensics",
+      "description": "Inspect real-world web application code snippets. Identify security vulnerabilities and analyze dangerous implementation flaws.",
+      "icon": "⚡",
+      "color": "#8B5CF6",
+      "unlock_condition": "complete_round_2"
+    }
+  ],
+  "rules": [
+    "Target Engagement Scope: Operations restricted strictly to designated challenge sandboxes and oxraventest.com.",
+    "OPSEC Standards: Inter-operative answer sharing and unauthorized collusion are strictly prohibited.",
+    "Intelligence Tax: Tactical hint decryption imposes an operational score penalty.",
+    "Adversarial Reporting: Unintended infrastructure vulnerabilities must be cataloged immediately.",
+    "Credential Integrity: Single-operator clearance per forensic workstation.",
+    "Answer Submissions: Enter the plain text answer discovered in each challenge (e.g. NOTHING_IS_HIDDEN). Format is flexible and beginner-friendly!",
+    "Lead Director adjudication is final across all operational disputes."
+  ]
+}

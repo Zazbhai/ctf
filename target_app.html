@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0xRAVEN Systems — Employee Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta name="description" content="0xRAVEN Systems — Unified Enterprise Operations & Security Portal">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0f1117;--bg2:#161b27;--bg3:#1c2232;
+      --border:#2a3347;--text:#e2e8f0;--muted:#64748b;
+      --accent:#3b82f6;--accent-dk:#2563eb;
+      --green:#22c55e;--red:#ef4444;--amber:#f59e0b;--cyan:#06b6d4;
+    }
+    html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+
+    /* ── Header ── */
+    .site-header{
+      background:var(--bg2);border-bottom:1px solid var(--border);
+      padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;
+    }
+    .site-logo{
+      display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;
+      cursor:pointer;user-select:none;color:inherit;
+    }
+    .logo-badge{
+      width:28px;height:28px;border-radius:6px;
+      background:linear-gradient(135deg,#3b82f6,#06b6d4);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#fff;
+    }
+    .site-nav{display:flex;gap:2px;align-items:center}
+    .site-nav a{
+      color:var(--muted);font-size:13px;font-weight:500;padding:5px 12px;
+      border-radius:6px;cursor:pointer;transition:all .15s;
+    }
+    .site-nav a:hover{background:var(--bg3);color:var(--text)}
+    .site-nav a.active{background:var(--bg3);color:var(--text)}
+    .nav-admin{
+      color:rgba(239,68,68,.6)!important;font-family:'JetBrains Mono',monospace;
+      font-size:12px;
+    }
+    .nav-admin:hover{background:rgba(239,68,68,.08)!important;color:var(--red)!important}
+    .nav-user-pill{
+      display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:20px;padding:4px 12px;
+    }
+    .nav-user-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+    /* ── Alert ── */
+    #alert-banner{
+      display:none;max-width:500px;margin:14px auto;padding:11px 16px;
+      border-radius:8px;font-size:13px;font-weight:500;border:1px solid;
+    }
+    #alert-banner.error{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:#fca5a5}
+    #alert-banner.info {background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.3);color:#67e8f9}
+    #alert-banner.warn {background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:#fcd34d}
+
+    /* ── Pages ── */
+    .page{display:none!important}
+    .page.active{display:block!important}
+    #page-login.active,#page-403.active,#page-404.active{display:flex!important}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .anim{animation:fadeUp .2s ease}
+
+    /* ── Login ── */
+    #page-login{min-height:calc(100vh - 54px);align-items:center;justify-content:center;padding:40px 16px}
+    .login-card{
+      width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--border);
+      border-radius:14px;padding:34px 30px;box-shadow:0 24px 64px rgba(0,0,0,.45);
+    }
+    .card-logo{text-align:center;margin-bottom:24px}
+    .card-icon{
+      width:50px;height:50px;border-radius:12px;margin:0 auto 12px;font-size:20px;
+      background:linear-gradient(135deg,#1e3a5f,#1e4a7a);
+      border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;
+    }
+    .card-logo h1{font-size:17px;font-weight:700;margin-bottom:4px}
+    .card-logo p{font-size:12px;color:var(--muted)}
+    .fg{margin-bottom:15px}
+    .fg label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+    .fg input{
+      width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;
+      padding:9px 13px;font-size:13px;color:var(--text);font-family:'Inter',sans-serif;
+      outline:none;transition:border-color .15s;
+    }
+    .fg input:focus{border-color:var(--accent)}
+    .btn-submit{
+      width:100%;padding:10px;background:var(--accent);color:#fff;border:none;
+      border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;
+      font-family:'Inter',sans-serif;transition:background .15s;
+    }
+    .btn-submit:hover{background:var(--accent-dk)}
+    .login-footer{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-align:center;line-height:1.8}
+    .login-footer a{color:var(--accent);cursor:pointer}
+    .login-footer a:hover{text-decoration:underline}
+
+    /* ── Content pages ── */
+    .cpg{padding:26px;max-width:880px;margin:0 auto}
+
+    /* ── Generic card ── */
+    .gcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:16px}
+    .gcard-hdr{
+      background:var(--bg3);border-bottom:1px solid var(--border);
+      padding:9px 14px;display:flex;align-items:center;gap:10px;
+      font-family:'JetBrains Mono',monospace;font-size:11px;
+    }
+    .gcard-body{padding:16px}
+    .method{font-weight:700}
+    .method.get{color:var(--green)}.method.post{color:var(--accent)}
+    .api-path{color:var(--cyan);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .s200{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);border-radius:4px;padding:2px 8px;font-weight:700}
+    .s403{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red);border-radius:4px;padding:2px 8px;font-weight:700}
+    .s500{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--amber);border-radius:4px;padding:2px 8px;font-weight:700}
+
+    /* ── JSON pre ── */
+    .jpre{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;color:#94a3b8;white-space:pre-wrap;overflow-x:auto}
+    .jpre .jk{color:#93c5fd}.jpre .js{color:#86efac}.jpre .jn{color:#fbbf24}
+    .jpre .jflag{color:#4ade80;font-weight:700}.jpre .jred{color:#fca5a5}
+
+    /* ── Robots ── */
+    .rbody{padding:18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;color:#94a3b8;white-space:pre-wrap}
+    .rbody .deny{color:#fca5a5}.rbody .cmt{color:#475569}.rbody .leak{color:#fbbf24;font-weight:700}
+
+    /* ── Profile page ── */
+    .profile-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px}
+    .profile-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin-bottom:14px}
+    .profile-name{font-size:18px;font-weight:700;margin-bottom:4px}
+    .profile-role{font-size:12px;color:var(--muted);margin-bottom:16px}
+    .profile-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .profile-row:last-child{border-bottom:none}
+    .profile-row .pk{color:var(--muted)}.profile-row .pv{font-weight:500}
+    .profile-row .pv.flag{color:var(--green);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
+    .profile-row .pv.hidden-field{color:#334155;font-family:'JetBrains Mono',monospace;font-size:12px}
+
+    /* ── Search ── */
+    .search-wrap{display:flex;gap:8px;margin-bottom:16px}
+    .search-inp{
+      flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+      padding:9px 14px;font-size:13px;color:var(--text);
+      font-family:'JetBrains Mono',monospace;outline:none;transition:border-color .15s;
+    }
+    .search-inp:focus{border-color:var(--accent)}
+    .btn-search{
+      padding:9px 18px;background:var(--accent);color:#fff;border:none;
+      border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;
+      font-family:'Inter',sans-serif;transition:background .15s;
+    }
+    .btn-search:hover{background:var(--accent-dk)}
+    .sqli-warn{
+      background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
+      border-radius:8px;padding:10px 14px;font-size:12px;color:#fca5a5;
+      font-family:'JetBrains Mono',monospace;margin-bottom:12px;
+    }
+
+    /* ── Comments / XSS ── */
+    .comment-form textarea{
+      width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;
+      padding:10px 14px;font-size:13px;color:var(--text);font-family:'Inter',sans-serif;
+      outline:none;resize:vertical;min-height:80px;transition:border-color .15s;
+      margin-bottom:10px;
+    }
+    .comment-form textarea:focus{border-color:var(--accent)}
+    .btn-post{
+      padding:8px 20px;background:var(--accent);color:#fff;border:none;
+      border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;
+      font-family:'Inter',sans-serif;transition:background .15s;
+    }
+    .btn-post:hover{background:var(--accent-dk)}
+    .comment-list{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+    .comment-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px}
+    .comment-meta{font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;gap:10px}
+    .comment-body{font-size:13px;line-height:1.6}
+    .xss-triggered{
+      display:none;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);
+      border-radius:8px;padding:14px;margin-top:14px;
+    }
+    .xss-triggered.show{display:block}
+    .xss-cookie{font-family:'JetBrains Mono',monospace;font-size:12px;color:#fbbf24;margin-top:6px;word-break:break-all}
+
+    /* ── Admin ── */
+    .admin-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+    .admin-topbar h2{font-size:20px;font-weight:700}
+    .badge-admin{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+    .sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .sc .sl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin-bottom:7px}
+    .sc .sv{font-size:22px;font-weight:700}
+    .sv.red{color:var(--red)}.sv.green{color:var(--green)}.sv.amber{color:var(--amber)}
+    .section-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+    .section-card h3{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+    .flag-box{
+      background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);
+      border-radius:8px;padding:14px 18px;
+      font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--green);
+      letter-spacing:.05em;font-weight:700;margin-bottom:10px;
+    }
+    .utbl{width:100%;border-collapse:collapse;font-size:12px}
+    .utbl th{text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:6px 10px;border-bottom:1px solid var(--border)}
+    .utbl td{padding:9px 10px;border-bottom:1px solid rgba(42,51,71,.5)}
+    .utbl td.mono{font-family:'JetBrains Mono',monospace;font-size:11px}
+    .rtag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+    .rtag.admin{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+    .rtag.user{background:rgba(100,116,139,.1);border:1px solid rgba(100,116,139,.3);color:var(--muted)}
+
+    /* ── Error pages ── */
+    #page-403,#page-404{min-height:calc(100vh - 54px);align-items:center;justify-content:center}
+    .err-wrap{text-align:center;max-width:460px;padding:24px 16px}
+    .err-code{font-size:80px;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:10px}
+    .e403{color:var(--red);opacity:.7}.e404{color:var(--muted);opacity:.5}
+    .err-title{font-size:19px;font-weight:700;margin-bottom:8px}
+    .err-desc{color:var(--muted);font-size:13px;line-height:1.65;margin-bottom:14px}
+    .err-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:#2e3d55;line-height:1.9}
+    .btn-back{
+      display:inline-flex;align-items:center;gap:5px;margin-top:14px;
+      background:var(--bg2);border:1px solid var(--border);color:var(--text);
+      padding:8px 16px;border-radius:7px;font-size:12px;font-weight:600;
+      cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;
+    }
+    .btn-back:hover{background:var(--bg3)}
+
+    /* ── DevTools ── */
+    #devtools-panel{
+      display:none;position:fixed;bottom:0;left:0;right:0;height:256px;
+      background:#1e1e1e;border-top:2px solid #3c3c3c;z-index:9999;
+      flex-direction:column;font-family:'JetBrains Mono',monospace;font-size:11px;
+    }
+    #devtools-panel.open{display:flex}
+    .dt-tabs{background:#252526;border-bottom:1px solid #333;display:flex;align-items:center;padding:0 6px;flex-shrink:0}
+    .dt-tab{padding:7px 13px;color:#888;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;font-size:11px;font-family:'JetBrains Mono',monospace}
+    .dt-tab:hover{color:#ccc}.dt-tab.on{color:#fff;border-bottom-color:var(--cyan)}
+    .dt-close{margin-left:auto;color:#555;border:none;background:none;cursor:pointer;padding:4px 10px;font-size:13px}
+    .dt-close:hover{color:#aaa}
+    .dt-body{flex:1;overflow-y:auto;padding:8px 12px}
+    .dt-pane{display:none}.dt-pane.on{display:block}
+    .cline{line-height:1.65;padding:1px 0}
+    .cline.info{color:#6b7280}.cline.warn{color:#f59e0b}.cline.error{color:#ef4444}
+    .cline.cmd{color:#e2e8f0}.cline.out{color:#22d3ee;padding-left:14px}
+    .cin-row{display:flex;align-items:center;gap:6px;border-top:1px solid #2e2e2e;padding-top:6px;margin-top:4px}
+    .cin-row span{color:#4ade80;font-weight:700}
+    .cin-row input{flex:1;background:none;border:none;color:#e2e8f0;outline:none;font-family:'JetBrains Mono',monospace;font-size:11px}
+    .net-tbl{width:100%;border-collapse:collapse;font-size:11px}
+    .net-tbl th{color:#555;padding:3px 8px;text-align:left;border-bottom:1px solid #2e2e2e}
+    .net-tbl td{padding:3px 8px;border-bottom:1px solid #252525}
+    .net-tbl td.uc{color:#93c5fd;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .net-tbl td.tok{color:#22c55e;font-weight:700}.net-tbl td.terr{color:#ef4444;font-weight:700}
+    .net-tbl td.tm{color:#4b5563}
+    .ck-tbl{width:100%;border-collapse:collapse;font-size:11px}
+    .ck-tbl th{color:#555;padding:3px 8px;text-align:left;border-bottom:1px solid #2e2e2e}
+    .ck-tbl td{padding:3px 8px;border-bottom:1px solid #252525}
+    .ck-tbl td.ck{color:#f9a8d4}.ck-tbl td.cv{color:#fcd34d;font-weight:700}.ck-tbl td.cm{color:#374151}
+    .src{line-height:1.7;color:#6b7280}
+    .src .kw{color:#c678dd}.src .st{color:#98c379}.src .cm{color:#4b5563;font-style:italic}.src .hl{color:#e06c75}.src .attr{color:#d19a66}
+    .src-tab{background:none;border:none;color:#888;font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;padding:3px 9px;border-radius:4px;transition:all .15s}
+    .src-tab:hover{color:#ccc;background:#2a2a2a}
+    .src-tab.on{color:#38bdf8;background:#1e293b;font-weight:700}
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="site-logo" onclick="go('/login')">
+      <div class="logo-badge">0x</div>
+      <span>0xRAVEN Systems</span>
+    </div>
+    <nav class="site-nav">
+      <a id="nav-home"   onclick="go('/login')">Portal</a>
+      <a id="nav-search" onclick="go('/search')">Search</a>
+      <a id="nav-forums" onclick="go('/forums')">Forums</a>
+      <a id="nav-profile" onclick="goProfile()">Profile</a>
+      <a id="nav-admin" class="nav-admin" onclick="go('/admin')">/admin</a>
+      <div class="nav-user-pill" id="nav-user-pill" style="display:none">
+        <div class="dot"></div>
+        <span id="nav-username">guest</span>
+      </div>
+    </nav>
+  </header>
+
+  <div id="alert-banner"></div>
+
+  <!-- ── LOGIN ── -->
+  <div id="page-login" class="page active">
+    <div class="login-card anim">
+      <div class="card-logo">
+        <div class="card-icon">🔐</div>
+        <h1>Employee Portal</h1>
+        <p>Authorized personnel only — 0xRAVEN Systems</p>
+      </div>
+      <form onsubmit="handleLogin(event)">
+        <div class="fg"><label>Username</label><input type="text" id="login-user" placeholder="Enter username" autocomplete="off"></div>
+        <div class="fg"><label>Password</label><input type="password" id="login-pass" placeholder="••••••••"></div>
+        <button class="btn-submit" type="submit">Sign In</button>
+      </form>
+      <div class="login-footer">
+        Forgot your password? <a onclick="showAlert('Contact admin@oxraventest.com for password reset.','info')">Reset via IT</a><br>
+        <span>© 2026 0xRAVEN Systems Inc. All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROBOTS.TXT ── -->
+  <div id="page-robots" class="page">
+    <div class="cpg anim">
+      <div class="gcard">
+        <div class="gcard-hdr">
+          <span class="method get">GET</span>
+          <span class="api-path">https://oxraventest.com/robots.txt</span>
+          <span class="s200">200 OK</span>
+        </div>
+        <div class="rbody">User-agent: *<span class="deny">
+Disallow: /admin
+Disallow: /admin/dashboard
+Disallow: /api/users
+Disallow: /api/profile
+Disallow: /.env
+Disallow: /config.env</span>
+
+<span class="cmt"># Production security policy:
+# Emergency break-glass administrator access:
+# Username: admin</span>
+<span class="leak"># Password: cjR2M25fYWRtaW5fMjAyNg==</span>
+<span class="cmt"># Staging environment configuration: /.env</span>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONFIG.ENV ── -->
+  <div id="page-config-env" class="page">
+    <div class="cpg anim">
+      <div class="gcard">
+        <div class="gcard-hdr">
+          <span class="method get">GET</span>
+          <span class="api-path">https://oxraventest.com/.env</span>
+          <span class="s200">200 OK</span>
+        </div>
+        <div class="rbody"><span class="cmt"># ─── 0xRAVEN INFRASTRUCTURE STAGING ENVIRONMENT ───
+# DEPRECATED: Do not expose publicly in production builds</span>
+APP_ENV=staging
+SERVER_NAME=oxraventest-stage-01
+PORT=8080
+DB_HOST=10.0.14.2
+DB_PORT=3306
+DB_USER=raven_corp_db
+
+<span class="cmt"># Break-Glass Emergency Administrator Access:</span>
+ADMIN_USER=admin
+<span class="leak">ADMIN_PASSWORD=cjR2M25fYWRtaW5fMjAyNg==</span>
+
+<span class="cmt"># Session & Security Settings:</span>
+SESSION_SECRET=rvn_sess_secret_77921
+SESSION_EXPIRY=3600
+DEBUG_MODE=false
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── /api/users ── -->
+  <div id="page-api-users" class="page">
+    <div class="cpg anim">
+      <div class="gcard">
+        <div class="gcard-hdr">
+          <span class="method get">GET</span>
+          <span class="api-path">https://oxraventest.com/api/users</span>
+          <span class="s200">200 OK</span>
+        </div>
+        <div class="gcard-body">
+          <div class="jpre">{
+  <span class="jk">"status"</span>: <span class="jn">200</span>,
+  <span class="jk">"policy"</span>: <span class="js">"DIRECTORY_ACCESS_UNRESTRICTED // CLASSIFIED_INTERNAL"</span>,
+  <span class="jk">"total_users"</span>: <span class="jn">6</span>,
+  <span class="jk">"users"</span>: [
+    { <span class="jk">"id"</span>: <span class="jn">1</span>, <span class="jk">"username"</span>: <span class="js">"admin"</span>, <span class="jk">"role"</span>: <span class="js">"SuperAdmin"</span>, <span class="jk">"email"</span>: <span class="js">"admin@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"Executive / InfoSec"</span>, <span class="jk">"auth"</span>: <span class="js">"token_secret"</span> },
+    { <span class="jk">"id"</span>: <span class="jn">2</span>, <span class="jk">"username"</span>: <span class="js">"john_doe"</span>, <span class="jk">"role"</span>: <span class="js">"Employee"</span>, <span class="jk">"email"</span>: <span class="js">"j.morrison@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"Engineering"</span> },
+    { <span class="jk">"id"</span>: <span class="jn">3</span>, <span class="jk">"username"</span>: <span class="js">"s.connor"</span>, <span class="jk">"role"</span>: <span class="js">"Analyst"</span>, <span class="jk">"email"</span>: <span class="js">"s.connor@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"Threat Intelligence"</span> },
+    { <span class="jk">"id"</span>: <span class="jn">4</span>, <span class="jk">"username"</span>: <span class="js">"e.alderson"</span>, <span class="jk">"role"</span>: <span class="js">"Developer"</span>, <span class="jk">"email"</span>: <span class="js">"elliot@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"Core Infrastructure"</span> },
+    { <span class="jk">"id"</span>: <span class="jn">5</span>, <span class="jk">"username"</span>: <span class="js">"k.reyes"</span>, <span class="jk">"role"</span>: <span class="js">"DevOps"</span>, <span class="jk">"email"</span>: <span class="js">"k.reyes@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"Cloud Infra & SRE"</span> },
+    { <span class="jk">"id"</span>: <span class="jn">6</span>, <span class="jk">"username"</span>: <span class="js">"guest"</span>, <span class="jk">"role"</span>: <span class="js">"Guest"</span>, <span class="jk">"email"</span>: <span class="js">"guest@oxraventest.com"</span>, <span class="jk">"department"</span>: <span class="js">"External Auditor"</span> }
+  ]
+}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── /api/profile (IDOR — WEB-02) ── -->
+  <div id="page-api-profile" class="page">
+    <div class="cpg anim">
+      <div id="profile-api-raw" class="gcard" style="margin-bottom:16px"></div>
+      <div id="profile-rendered"></div>
+    </div>
+  </div>
+
+  <!-- ── /search or /api/search (SQLi — WEB-03) ── -->
+  <div id="page-search" class="page">
+    <div class="cpg anim">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:18px;">Employee Directory Search</h2>
+      <div class="search-wrap">
+        <input class="search-inp" id="search-q" placeholder="Search by name or department..." onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="btn-search" onclick="doSearch()">Search</button>
+      </div>
+      <div class="sqli-warn" id="sqli-warn" style="display:none">
+        ⚠ SQL Syntax Exception: Unescaped string literal triggered backend database fault.
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- ── /forums (XSS — WEB-04) ── -->
+  <div id="page-forums" class="page">
+    <div class="cpg anim">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:18px;">Operations Discussion Board</h2>
+      <div class="gcard">
+        <div class="gcard-hdr"><span style="color:var(--cyan);font-weight:700">DISPATCH</span> message to internal thread</div>
+        <div class="gcard-body comment-form">
+          <textarea id="comment-text" placeholder="Transmit operational report, inquiry, or advisory to team..."></textarea>
+          <button class="btn-post" onclick="postComment()">Submit Dispatch</button>
+        </div>
+      </div>
+      <div id="xss-triggered" class="xss-triggered">
+        <div style="color:var(--red);font-weight:700;margin-bottom:6px;">⚠ [SECURITY INCIDENT] Stored Script Executed — Supervisory Session Intercepted:</div>
+        <div class="xss-cookie" id="xss-cookie-dump">session_id=ADMIN_sess_9x2b; token_b64=...</div>
+        <div style="font-size:12px;color:var(--green);font-weight:700;margin-top:8px;" id="xss-flag-display">Intercepted Token [Base64 Encoded]</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Decode the Base64 session token via DevTools <code>atob()</code> or Cyber Terminal to extract the plain verification answer.</div>
+      </div>
+      <div class="comment-list" id="comment-list"></div>
+    </div>
+  </div>
+
+  <!-- ── /admin (WEB-01 flag here) ── -->
+  <div id="page-admin" class="page">
+    <div class="cpg anim">
+      <div class="admin-topbar">
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:3px;font-family:'JetBrains Mono',monospace" id="admin-session-info">SESSION: AUTHENTICATED</div>
+          <h2>System Administration Dashboard</h2>
+        </div>
+        <span class="badge-admin">ADMIN ACCESS</span>
+      </div>
+
+      <!-- WEB-01 verification answer: shown always when inside admin -->
+      <div class="section-card">
+        <h3>🚩 Perimeter Security Token Buffer — Access Control (CWE-287)</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
+          Perimeter authorization gateway compromised. Verification credential token captured in active session memory buffer [Hexadecimal Byte Stream]:
+        </p>
+        <div class="flag-box" id="admin-flag-display"></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:6px">
+          Hex-encoded verification byte stream captured! Decode Hex to ASCII via Cyber Terminal (<code>xxd -r -p</code>) or CyberChef to extract the verification answer.
+        </p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="sc"><div class="sl">Active Sessions</div><div class="sv amber">1,482</div></div>
+        <div class="sc"><div class="sl">Auth Method</div><div class="sv red" style="font-size:13px;font-family:'JetBrains Mono',monospace" id="admin-auth-method">CREDENTIAL</div></div>
+        <div class="sc"><div class="sl">Server Status</div><div class="sv green" style="font-size:14px">ONLINE</div></div>
+        <div class="sc"><div class="sl">Security Rating</div><div class="sv red" style="font-size:14px">CRITICAL</div></div>
+      </div>
+      <div class="section-card">
+        <h3>Central Identity Directory — Database Dump (RESTRICTED ACCESS)</h3>
+        <table class="utbl">
+          <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Password</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">admin</td><td class="mono">admin@oxraventest.com</td><td class="mono" style="color:#fbbf24">cjR2M25fYWRtaW5fMjAyNg==</td><td><span class="rtag admin">ADMIN</span></td></tr>
+            <tr><td class="mono">2</td><td class="mono">john_doe</td><td class="mono">j.morrison@oxraventest.com</td><td class="mono" style="color:#4ade80">m0rris0n_secure99</td><td><span class="rtag user">EMPLOYEE</span></td></tr>
+            <tr><td class="mono">3</td><td class="mono">s.connor</td><td class="mono">s.connor@oxraventest.com</td><td class="mono" style="color:#4ade80">skynet_resistance84</td><td><span class="rtag user">ANALYST</span></td></tr>
+            <tr><td class="mono">4</td><td class="mono">e.alderson</td><td class="mono">elliot@oxraventest.com</td><td class="mono" style="color:#4ade80">fs0ciety_daemon_9</td><td><span class="rtag user">DEVELOPER</span></td></tr>
+            <tr><td class="mono">5</td><td class="mono">k.reyes</td><td class="mono">k.reyes@oxraventest.com</td><td class="mono" style="color:#4ade80">cloud_infra_2026!</td><td><span class="rtag user">DEVOPS</span></td></tr>
+            <tr><td class="mono">6</td><td class="mono">guest</td><td class="mono">guest@oxraventest.com</td><td class="mono" style="color:#4ade80">guest</td><td><span class="rtag user">GUEST</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;color:var(--red);margin-top:8px">⚠ Security notice: Reversible access token used for administrator authentication.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 403 ── -->
+  <div id="page-403" class="page">
+    <div class="err-wrap anim">
+      <div class="err-code e403">403</div>
+      <div class="err-title">Access Denied</div>
+      <div class="err-desc">You are not authorized to access this resource. Valid authentication credentials are required. Unauthorized access attempts are logged.</div>
+      <div class="err-meta">Host: oxraventest.com&nbsp;|&nbsp;Code: UNAUTHORIZED<br>Session: <span id="e403-session">guest</span>&nbsp;|&nbsp;IP: 104.28.18.2</div>
+      <button class="btn-back" onclick="go('/login')">← Back to Login</button>
+    </div>
+  </div>
+
+  <!-- ── 404 ── -->
+  <div id="page-404" class="page">
+    <div class="err-wrap anim">
+      <div class="err-code e404">404</div>
+      <div class="err-title">Page Not Found</div>
+      <div class="err-desc">The requested URL was not found on this server. Check for typos or navigate using the menu above.</div>
+      <div class="err-meta" id="e404-meta"></div>
+      <button class="btn-back" onclick="go('/login')">← Go Home</button>
+    </div>
+  </div>
+
+  <!-- ── DevTools ── -->
+  <div id="devtools-panel">
+    <div class="dt-tabs">
+      <button class="dt-tab on"  onclick="dtTab('elements')">Elements</button>
+      <button class="dt-tab"     onclick="dtTab('console')">Console</button>
+      <button class="dt-tab"     onclick="dtTab('network')">Network</button>
+      <button class="dt-tab"     onclick="dtTab('application')">Application</button>
+      <button class="dt-tab"     onclick="dtTab('sources')">Sources</button>
+      <button class="dt-close"   onclick="toggleDt()">✕</button>
+    </div>
+    <div class="dt-body">
+      <div class="dt-pane on" id="dtp-elements">
+        <div class="src">
+&lt;<span class="kw">!DOCTYPE</span> <span class="st">html</span>&gt;
+&lt;<span class="kw">html</span> <span class="kw">lang</span>=<span class="st">"en"</span>&gt;
+&lt;<span class="kw">head</span>&gt;
+  &lt;<span class="kw">meta</span> <span class="kw">charset</span>=<span class="st">"UTF-8"</span>&gt;
+  &lt;<span class="kw">title</span>&gt;0xRAVEN Systems — Employee Portal&lt;/<span class="kw">title</span>&gt;
+  &lt;<span class="kw">link</span> <span class="kw">rel</span>=<span class="st">"stylesheet"</span> <span class="kw">href</span>=<span class="st">"/static/css/portal.min.css"</span>&gt;
+&lt;/<span class="kw">head</span>&gt;
+&lt;<span class="kw">body</span> <span class="kw">class</span>=<span class="st">"raven-theme"</span>&gt;
+  &lt;<span class="kw">header</span> <span class="kw">class</span>=<span class="st">"site-header"</span>&gt;
+    &lt;<span class="kw">div</span> <span class="kw">class</span>=<span class="st">"site-logo"</span>&gt;0xRAVEN Systems&lt;/<span class="kw">div</span>&gt;
+  &lt;/<span class="kw">header</span>&gt;
+  &lt;<span class="kw">main</span> <span class="kw">id</span>=<span class="st">"app-mount"</span>&gt;
+    &lt;<span class="kw">div</span> <span class="kw">class</span>=<span class="st">"login-card"</span>&gt;
+      &lt;<span class="kw">form</span> <span class="kw">action</span>=<span class="st">"/api/login"</span> <span class="kw">method</span>=<span class="st">"POST"</span> <span class="kw">id</span>=<span class="st">"auth-form"</span>&gt;
+        &lt;<span class="kw">input</span> <span class="kw">name</span>=<span class="st">"username"</span> <span class="kw">placeholder</span>=<span class="st">"Corporate ID / Username"</span>/&gt;
+        &lt;<span class="kw">input</span> <span class="kw">name</span>=<span class="st">"password"</span> <span class="kw">type</span>=<span class="st">"password"</span> <span class="kw">placeholder</span>=<span class="st">"••••••••"</span>/&gt;
+        &lt;<span class="kw">button</span> <span class="kw">type</span>=<span class="st">"submit"</span>&gt;Authenticate&lt;/<span class="kw">button</span>&gt;
+      &lt;/<span class="kw">form</span>&gt;
+    &lt;/<span class="kw">div</span>&gt;
+  &lt;/<span class="kw">main</span>&gt;
+&lt;/<span class="kw">body</span>&gt;
+&lt;/<span class="kw">html</span>&gt;
+</div>
+      </div>
+      <div class="dt-pane" id="dtp-console">
+        <div id="console-out">
+          <div class="cline info">[info] Navigated to https://oxraventest.com/login</div>
+        </div>
+        <div class="cin-row"><span>&gt;</span><input id="cin" type="text" placeholder="document.cookie, localStorage, atob('...')" onkeydown="if(event.key==='Enter')runCon()"></div>
+      </div>
+      <div class="dt-pane" id="dtp-network">
+        <table class="net-tbl"><thead><tr><th>Name</th><th>Status</th><th>Type</th><th>Initiator</th><th>Size</th></tr></thead><tbody id="net-tbody"></tbody></table>
+      </div>
+      <div class="dt-pane" id="dtp-application">
+        <div style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Cookies — https://oxraventest.com</div>
+        <table class="ck-tbl" style="margin-bottom:14px"><thead><tr><th>Name</th><th>Value</th><th>Domain</th><th>HttpOnly</th></tr></thead><tbody id="ck-tbody">
+          <tr><td class="ck">session_id</td><td class="cm">guest_7f2a1c</td><td class="cm">oxraventest.com</td><td class="cm">false</td></tr>
+          <tr><td class="ck">csrf_token</td><td class="cm">xk7pq2mna…</td><td class="cm">oxraventest.com</td><td class="cm">true</td></tr>
+        </tbody></table>
+        <div style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Local Storage — https://oxraventest.com</div>
+        <table class="ck-tbl"><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>
+          <tr><td class="ck">theme</td><td class="cm">dark</td></tr>
+          <tr><td class="ck">emergency_auth_token</td><td class="cv">cjR2M25fYWRtaW5fMjAyNg==</td></tr>
+          <tr><td class="ck">realm</td><td class="cm">0xRAVEN-INTERNAL</td></tr>
+        </tbody></table>
+      </div>
+      <div class="dt-pane" id="dtp-sources">
+        <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid #333;padding-bottom:5px">
+          <button class="src-tab on" id="stab-client" onclick="srcTab('client')">📄 authConfig.js</button>
+          <button class="src-tab" id="stab-server" onclick="srcTab('server')">📄 server.js</button>
+        </div>
+        <div id="src-file-client" class="src-file">
+          <div style="color:#64748b;font-size:10px;margin-bottom:4px">// /static/js/authConfig.js (client-side bundled asset)</div>
+          <div class="src">
+<span class="kw">export const</span> AUTH_CONFIG = {
+  realm: <span class="st">"0xRAVEN-INTERNAL"</span>,
+  sessionTimeout: 3600,
+  <span class="cm">// Dev backup auth token:</span>
+  emergencyToken: <span class="hl">"cjR2M25fYWRtaW5fMjAyNg=="</span>,
+  endpoints: { login: <span class="st">"/api/login"</span>, users: <span class="st">"/api/users"</span> }
+};
+          </div>
+        </div>
+        <div id="src-file-server" class="src-file" style="display:none">
+          <div style="color:#64748b;font-size:10px;margin-bottom:4px">// server.js (backend endpoint handlers)</div>
+          <div class="src">
+<span class="cm">// VULNERABLE: raw string interpolation into SQL query</span>
+<span class="kw">app</span>.post(<span class="st">'/api/login'</span>, (req, res) =&gt; {
+  <span class="kw">const</span> {username, password} = req.body;
+  <span class="cm">// BUG: user input injected directly — no parameterized queries!</span>
+  <span class="kw">const</span> q = <span class="hl">`SELECT * FROM users WHERE username='${username}' AND password='${password}'`</span>;
+  db.query(q, (err, rows) =&gt; {
+    <span class="kw">if</span> (rows.length &gt; 0) res.redirect(<span class="st">'/admin'</span>);
+    <span class="kw">else</span> res.status(401).send(<span class="st">'Unauthorized'</span>);
+  });
+});
+<span class="cm">// WEB-05: /admin only checks session, not role!</span>
+<span class="kw">app</span>.get(<span class="st">'/admin'</span>, (req, res) =&gt; {
+  <span class="kw">if</span> (!req.session.user) return res.redirect(<span class="st">'/login'</span>);
+  res.render(<span class="st">'admin'</span>);
+});
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ─── State ─── */
+  let session = { isLoggedIn: false, user: null, role: null, sqli: false };
+  const comments = [
+    { user: 'admin', time: '2 hours ago', body: 'Welcome to the 0xRAVEN employee forums. Please keep discussions professional.' }
+  ];
+  const netLog = [];
+  let hist = ['/login'], hIdx = 0;
+
+  /* ─── Dynamic Per-User Flag System ─── */
+  function getDynamicFlag(challengeId) {
+    // 1. If inside parent window (Codeverse CTF platform), request from parent
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.getUserChallengeFlag === 'function') {
+        const pFlag = window.parent.getUserChallengeFlag(challengeId);
+        if (pFlag) return pFlag;
+      }
+    } catch (e) {}
+
+    // 2. Standalone tab fallback: read active operative from localStorage
+    try {
+      const rawUid = localStorage.getItem('cv_currentUser');
+      const uid = rawUid ? JSON.parse(rawUid) : null;
+      let userObj = null;
+      if (uid) {
+        const rawUsers = localStorage.getItem('cv_users');
+        const users = rawUsers ? JSON.parse(rawUsers) : [];
+        userObj = users.find(u => u.id === uid) || { id: uid };
+      }
+      if (userObj) {
+        const baseFlags = {
+          'WEB-01': 'BROKEN_ACCESS_CONTROL',
+          'WEB-02': 'IDOR_GIVES_YOU_WINGS',
+          'WEB-03': 'SQL_ALWAYS_TELLS_THE_TRUTH',
+          'WEB-04': 'XSS_STEALS_SESSIONS'
+        };
+        const baseFlag = baseFlags[challengeId] || challengeId;
+        const seed = `${userObj.id || userObj.username}:${challengeId}:0xRAVEN_SALT_2026`;
+        let h = 0x811c9dc5;
+        for (let i = 0; i < seed.length; i++) {
+          h ^= seed.charCodeAt(i);
+          h = Math.imul(h, 0x01000193);
+        }
+        const suffix = Math.abs(h).toString(16).toUpperCase().padStart(6, '0').slice(-6);
+        return `${baseFlag}_${suffix}`;
+      }
+    } catch (e) {}
+
+    const defaults = {
+      'WEB-01': 'BROKEN_ACCESS_CONTROL',
+      'WEB-02': 'IDOR_GIVES_YOU_WINGS',
+      'WEB-03': 'SQL_ALWAYS_TELLS_THE_TRUTH',
+      'WEB-04': 'XSS_STEALS_SESSIONS'
+    };
+    return defaults[challengeId] || challengeId;
+  }
+
+  /* ─── Distinct Encoders for CTF Challenges ─── */
+  function encHex(s) {
+    return Array.from(s).map(c => c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')).join('');
+  }
+  function encRot13(s) {
+    return s.replace(/[A-Z]/g, c => String.fromCharCode(((c.charCodeAt(0) - 65 + 13) % 26) + 65))
+            .replace(/[a-z]/g, c => String.fromCharCode(((c.charCodeAt(0) - 97 + 13) % 26) + 97));
+  }
+  function encUrl(s) {
+    return Array.from(s).map(c => '%' + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')).join('');
+  }
+  function encB64(s) {
+    return btoa(s);
+  }
+
+  function syncDynamicFlags() {
+    try {
+      const w01 = getDynamicFlag('WEB-01');
+      const w04 = getDynamicFlag('WEB-04');
+
+      // WEB-01: Hexadecimal byte stream
+      const adminBox = document.getElementById('admin-flag-display');
+      if (adminBox) adminBox.textContent = encHex(w01);
+
+      // WEB-04: Base64 session token
+      const xssDump = document.getElementById('xss-cookie-dump');
+      if (xssDump) {
+        xssDump.textContent = `session_id=ADMIN_sess_9x2b; role=SuperAdmin; auth_token_b64=${encB64(w04)}`;
+      }
+      const xssDisplay = document.getElementById('xss-flag-display');
+      if (xssDisplay) xssDisplay.textContent = 'Intercepted Auth Token [Base64]: ' + encB64(w04);
+    } catch (e) {}
+  }
+
+  /* ─── Users DB ─── */
+  const USERS = {
+    admin: {
+      id: 1,
+      username: 'admin',
+      password: 'r4v3n_admin_2026',
+      passwordB64: 'cjR2M25fYWRtaW5fMjAyNg==',
+      role: 'admin',
+      email: 'admin@oxraventest.com',
+      department: 'Executive / InfoSec',
+      flag: null
+    },
+    john_doe: {
+      id: 2,
+      username: 'john_doe',
+      password: 'm0rris0n_secure99',
+      aliases: ['j0hn_p4ss'],
+      role: 'employee',
+      email: 'j.morrison@oxraventest.com',
+      department: 'Engineering',
+      notes: 'Standard engineering profile. Assigned to frontend component.',
+      flag: null
+    },
+    'j.miller': {
+      id: 2,
+      username: 'j.miller',
+      password: 'password123',
+      aliases: ['j0hn_p4ss', 'm0rris0n_secure99'],
+      role: 'employee',
+      email: 'j.miller@oxraventest.com',
+      department: 'Engineering',
+      notes: 'Standard developer workstation. Assigned to sprint backlog.',
+      flag: null
+    },
+    'j.morrison': {
+      id: 2,
+      username: 'j.morrison',
+      password: 'm0rris0n_secure99',
+      aliases: ['j0hn_p4ss'],
+      role: 'employee',
+      email: 'j.morrison@oxraventest.com',
+      department: 'Engineering',
+      notes: 'Standard engineering profile. Assigned to frontend component.',
+      flag: null
+    },
+    's.connor': {
+      id: 3,
+      username: 's.connor',
+      password: 'skynet_resistance84',
+      role: 'analyst',
+      email: 's.connor@oxraventest.com',
+      department: 'Threat Intelligence',
+      flag: null
+    },
+    'e.alderson': {
+      id: 4,
+      username: 'e.alderson',
+      password: 'fs0ciety_daemon_9',
+      role: 'developer',
+      email: 'elliot@oxraventest.com',
+      department: 'Core Infrastructure',
+      flag: null
+    },
+    'k.reyes': {
+      id: 5,
+      username: 'k.reyes',
+      password: 'cloud_infra_2026!',
+      role: 'devops',
+      email: 'k.reyes@oxraventest.com',
+      department: 'Cloud Infra & SRE',
+      flag: null
+    },
+    guest: {
+      id: 6,
+      username: 'guest',
+      password: 'guest',
+      aliases: ['analyst123'],
+      role: 'guest',
+      email: 'guest@oxraventest.com',
+      department: 'External Auditor',
+      flag: null
+    },
+    guest_analyst: {
+      id: 6,
+      username: 'guest_analyst',
+      password: 'analyst123',
+      aliases: ['guest'],
+      role: 'guest',
+      email: 'guest@oxraventest.com',
+      department: 'External Auditor',
+      flag: null
+    }
+  };
+
+  /* ─── Sources Tab Switcher ─── */
+  function srcTab(name) {
+    ['client','server'].forEach(k => {
+      document.getElementById('stab-'+k)?.classList.toggle('on', k===name);
+      const f = document.getElementById('src-file-'+k);
+      if (f) f.style.display = (k===name) ? 'block' : 'none';
+    });
+  }
+
+  /* ─── URL Helpers ─── */
+  function parseUrl(raw) {
+    let s = raw.trim().replace(/^https?:\/\//i,'').replace(/^oxraventest\.com/i,'');
+    if (!s.startsWith('/')) s = '/' + s;
+    return s || '/';
+  }
+  function setBar(route) { 
+    const full = 'https://oxraventest.com' + route;
+    const urlInp = document.getElementById('url-input');
+    if (urlInp) urlInp.value = full;
+    try {
+      if (window.parent && window.parent.document) {
+        const parentInp = window.parent.document.getElementById('chrome-omnibox-input');
+        if (parentInp) parentInp.value = 'oxraventest.com' + route;
+      }
+    } catch(e) {}
+  }
+  function urlNav(e) { if(e) e.preventDefault(); const r = parseUrl(document.getElementById('url-input')?.value || hist[hIdx] || '/login'); pushH(r); go(r,true); }
+  function pushH(r) { if(hist[hIdx]===r) return; hist=hist.slice(0,hIdx+1); hist.push(r); hIdx=hist.length-1; updNavBtns(); }
+  function hBack()   { if(hIdx>0){hIdx--;updNavBtns();go(hist[hIdx],true);} }
+  function hFwd()    { if(hIdx<hist.length-1){hIdx++;updNavBtns();go(hist[hIdx],true);} }
+  function hReload() { go(hist[hIdx] || '/login', true); }
+  function updNavBtns() { 
+    const bBack = document.getElementById('btn-back');
+    const bFwd = document.getElementById('btn-fwd');
+    if (bBack) bBack.disabled=hIdx<=0; 
+    if (bFwd) bFwd.disabled=hIdx>=hist.length-1; 
+  }
+  function goProfile() {
+    if (!session.isLoggedIn) { go('/login'); return; }
+    const u = USERS[session.user]; go('/api/profile?user_id=' + (u ? u.id : 3));
+  }
+
+  /* ─── Main Router ─── */
+  function go(rawRoute, skipPush) {
+    const qi = rawRoute.indexOf('?');
+    const path = qi >= 0 ? rawRoute.slice(0, qi) : rawRoute;
+    const qs   = qi >= 0 ? rawRoute.slice(qi+1) : '';
+    const params = {};
+    if (qs) qs.split('&').forEach(kv => { const [k,v]=kv.split('='); params[decodeURIComponent(k||'')]=decodeURIComponent(v||''); });
+
+    const fullRoute = qs ? path+'?'+qs : path;
+    if (!skipPush) pushH(fullRoute);
+    setBar(fullRoute);
+
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.site-nav a').forEach(a=>a.classList.remove('active'));
+
+    const p = path.replace(/\/+$/,'') || '/';
+
+    if (p==='/' || p==='/login') {
+      show('page-login'); act('nav-home');
+      logN('/login',200,'document');
+      clog('[info] https://oxraventest.com/login');
+
+    } else if (p==='/robots.txt') {
+      show('page-robots');
+      logN('/robots.txt',200,'document');
+      clog('[GET] /robots.txt — 200 OK','info');
+      clog('[warn] robots.txt contains administrator secret and references /.env','warn');
+
+    } else if (p==='/.env' || p==='/config.env' || p==='/api/config') {
+      show('page-config-env');
+      logN(p,200,'document');
+      clog('[GET] '+p+' — 200 OK (CRITICAL: Environment configuration exposed)','warn');
+      clog('[warn] ADMIN_PASSWORD=cjR2M25fYWRtaW5fMjAyNg== detected in environment.','warn');
+
+    } else if (p==='/api/users') {
+      show('page-api-users');
+      logN('/api/users',200,'xhr');
+      clog('[GET] /api/users — 200 OK (no auth check!)','info');
+      clog('[warn] User directory exposed without authentication.','warn');
+
+    } else if (p==='/api/profile') {
+      const uid = parseInt(params['user_id']) || (session.isLoggedIn ? USERS[session.user]?.id : 0);
+      renderProfile(uid);
+      logN('/api/profile?user_id='+uid, 200,'xhr');
+      clog('[GET] /api/profile?user_id='+uid,'info');
+      if (session.isLoggedIn && USERS[session.user]?.id !== uid) {
+        clog('[warn] IDOR: accessing another user\'s profile without authorization!','warn');
+      }
+
+    } else if (p==='/search' || p==='/api/search') {
+      show('page-search'); act('nav-search');
+      const q = params['q'] || '';
+      document.getElementById('search-q').value = q;
+      logN(fullRoute,200,'document');
+      clog('[GET] '+fullRoute,'info');
+      if (q) doSearchWith(q);
+
+    } else if (p==='/forums') {
+      show('page-forums'); act('nav-forums');
+      logN('/forums',200,'document');
+      clog('[GET] /forums — 200 OK','info');
+      renderComments();
+
+    } else if (p==='/admin' || p==='/admin/dashboard') {
+      if (!session.isLoggedIn) {
+        show('page-403');
+        document.getElementById('e403-session').textContent = 'guest (unauthenticated)';
+        logN('/admin/dashboard',403,'document');
+        clog('[error] 403 Forbidden — not authenticated.','error');
+        showAlert('403 — Access Denied. You must log in first.','error');
+      } else {
+        show('page-admin'); act('nav-admin');
+        logN('/admin/dashboard',200,'document');
+        syncDynamicFlags();
+        const isActualAdmin = session.role === 'admin';
+        document.getElementById('admin-session-info').textContent =
+          'SESSION: '+session.user.toUpperCase()+' | ROLE: '+(session.role||'employee').toUpperCase();
+        document.getElementById('admin-auth-method').textContent = session.sqli ? 'SQL BYPASS' : (isActualAdmin ? 'CREDENTIAL' : 'OPERATIVE ACCESS');
+        clog('[info] Admin console opened ('+session.user+').','info');
+        // Update cookies
+        document.getElementById('ck-tbody').innerHTML = `
+          <tr><td class="ck">session_id</td><td class="cv">SESS_${rnd()}</td><td class="cm">oxraventest.com</td><td class="cm">false</td></tr>
+          <tr><td class="ck">secret_token_hex</td><td class="cv">${encHex(getDynamicFlag('WEB-01'))}</td><td class="cm">oxraventest.com</td><td class="cm">false</td></tr>
+          <tr><td class="ck">user_role</td><td class="${isActualAdmin?'cv':'cm'}">${session.role}</td><td class="cm">oxraventest.com</td><td class="cm">false</td></tr>`;
+      }
+
+    } else {
+      show('page-404');
+      document.getElementById('e404-meta').textContent = 'GET https://oxraventest.com'+p+(qs?'?'+qs:'');
+      logN(fullRoute,404,'document');
+      clog('[error] 404 Not Found: '+fullRoute,'error');
+    }
+  }
+
+  function show(id) { document.getElementById(id)?.classList.add('active'); }
+  function act(id)  { document.getElementById(id)?.classList.add('active'); }
+
+  /* ─── Login ─── */
+  function handleLogin(e) {
+    if (e) e.preventDefault();
+    const user = (document.getElementById('login-user').value || '').trim();
+    const pass = (document.getElementById('login-pass').value || '').trim();
+    hideAlert();
+    if (!user || !pass) { showAlert('⚠ Both fields are required.','error'); return; }
+
+    logN('/api/login (POST)',200,'xhr');
+    clog('[POST] /api/login — username="'+user+'"','cmd');
+
+    // Case-insensitive user lookup (also checks email)
+    const userLower = user.toLowerCase();
+    const userEntry = Object.entries(USERS).find(([k, u]) => 
+      k.toLowerCase() === userLower || 
+      (u.username && u.username.toLowerCase() === userLower) ||
+      (u.email && u.email.toLowerCase() === userLower)
+    );
+    const userData = userEntry ? userEntry[1] : null;
+
+    // Comprehensive SQL injection detection
+    const sqliPatterns = [
+      /'\s*or\s*['"]?[0-9a-z]['"]?\s*=\s*['"]?[0-9a-z]/i,
+      /'\s*or\s*true/i,
+      /admin['"]?\s*(--|#|\/\*)/i,
+      /['"]?\s*union\s+select/i,
+      /'\s*--/,
+      /'\s*#/,
+      /--/,
+      /#/,
+      /\/\*/
+    ];
+    const isSqli = sqliPatterns.some(rgx => rgx.test(user) || rgx.test(pass));
+
+    let credMatch = false;
+    let b64Used = false;
+
+    if (userData) {
+      if (userData.password === pass || pass === 'password123' || (userData.aliases && userData.aliases.includes(pass))) {
+        credMatch = true;
+      } else if (userData.passwordB64 && userData.passwordB64 === pass) {
+        credMatch = true;
+        b64Used = true;
+      } else {
+        try {
+          if (atob(pass) === userData.password) {
+            credMatch = true;
+            b64Used = true;
+          }
+        } catch(err) {}
+      }
+    }
+
+    const isValid = credMatch || isSqli;
+
+    if (isValid) {
+      // If SQL injection, log in as admin
+      const loggedInAs = (isSqli && !credMatch) ? 'admin' : (userData ? userData.username : user);
+      const loggedInUser = USERS[loggedInAs] || USERS.admin;
+
+      if (isSqli && !credMatch) {
+        clog('[SQL] INJECTION: SELECT * WHERE username=\''+user+'\' AND password=\''+pass+'\' → condition always TRUE','warn');
+        clog('[SQL] Bypassed auth — logging in as first user (admin)','warn');
+      } else if (b64Used) {
+        clog('[info] Administrator authentication credential verified.', 'info');
+      }
+
+      session = { isLoggedIn: true, user: loggedInAs, role: loggedInUser.role, sqli: isSqli && !credMatch };
+      clog('[info] Session established. user='+loggedInAs+' role='+loggedInUser.role,'info');
+
+      // Update nav
+      document.getElementById('nav-user-pill').style.display = 'flex';
+      document.getElementById('nav-username').textContent = loggedInAs;
+      logN('/api/login',302,'xhr');
+      setTimeout(() => go('/admin'), 350);
+    } else {
+      clog('[SQL] Query returned 0 rows.','info');
+      clog('[error] 401 Unauthorized.','error');
+      logN('/api/login',401,'xhr');
+      showAlert('❌ 401 Unauthorized — Invalid username or password. Attempt logged.','error');
+    }
+  }
+
+  /* ─── Profile (IDOR — WEB-02) ─── */
+  function renderProfile(uid) {
+    show('page-api-profile'); act('nav-profile');
+    // Find user by ID
+    const entry = Object.entries(USERS).find(([,u]) => u.id === uid);
+    const rawCard = document.getElementById('profile-api-raw');
+    const rendered = document.getElementById('profile-rendered');
+
+    if (!entry) {
+      rawCard.innerHTML = `<div class="gcard-hdr"><span class="method get">GET</span><span class="api-path">/api/profile?user_id=${uid}</span><span class="s403">404 Not Found</span></div><div class="gcard-body"><div class="jpre">{ <span class="jred">"error": "User not found"</span> }</div></div>`;
+      rendered.innerHTML = '';
+      return;
+    }
+
+    const [uname, udata] = entry;
+    const isOwn = session.isLoggedIn && USERS[session.user]?.id === uid;
+    const isAdmin = session.isLoggedIn && session.role === 'admin';
+    const isSupervisoryTarget = uid === 1;
+    const flagVal = isSupervisoryTarget ? getDynamicFlag('WEB-02') : null;
+    const notesVal = isSupervisoryTarget ? 'SUPERVISORY_CIPHER_NOTE [ROT13]: ' + encRot13(flagVal) : (udata.notes || 'Standard employee profile. No elevated security clearance.');
+
+    // API raw response (IDOR on ID 1)
+    rawCard.innerHTML = `
+      <div class="gcard-hdr">
+        <span class="method get">GET</span>
+        <span class="api-path">/api/profile?user_id=${uid}</span>
+        <span class="s200">200 OK</span>
+        ${isSupervisoryTarget && !isOwn && !isAdmin ? '<span style="color:var(--amber);font-size:10px;font-weight:700;margin-left:auto">⚠ IDOR — accessing supervisory dossier</span>' : ''}
+      </div>
+      <div class="gcard-body">
+        <div class="jpre">{
+  <span class="jk">"id"</span>: <span class="jn">${uid}</span>,
+  <span class="jk">"username"</span>: <span class="js">"${uname}"</span>,
+  <span class="jk">"email"</span>: <span class="js">"${uname}@oxraventest.com"</span>,
+  <span class="jk">"role"</span>: <span class="js">"${udata.role}"</span>,
+  <span class="jk">"department"</span>: <span class="js">"${udata.department || (udata.role==='admin'?'Executive / InfoSec':'Engineering')}"</span>,
+  <span class="jk">"private_notes"</span>: <span class="${flagVal?'jflag':'jk'}">"${notesVal}"</span>
+}</div>
+      </div>`;
+
+    // Rendered profile card
+    rendered.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-avatar">${uname.charAt(0).toUpperCase()}</div>
+        <div class="profile-name">${uname}</div>
+        <div class="profile-role">${udata.role.charAt(0).toUpperCase()+udata.role.slice(1)} — 0xRAVEN Systems</div>
+        ${[
+          ['User ID', uid],
+          ['Email', uname+'@oxraventest.com'],
+          ['Department', udata.department || (udata.role==='admin'?'Executive / InfoSec':'Engineering')],
+          ['Role', udata.role],
+          ['Private Notes', notesVal],
+        ].map(([k,v]) => `
+          <div class="profile-row">
+            <span class="pk">${k}</span>
+            <span class="pv ${(v||'').includes('GIVES_YOU_WINGS') || (k==='flag')?'flag':''}"> ${v||'—'}</span>
+          </div>
+        `).join('')}
+        ${isSupervisoryTarget && !isOwn && !isAdmin ? `<div style="margin-top:14px;padding:10px 14px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;font-size:12px;color:#fca5a5">⚠ [SECURITY TELEMETRY] Insecure Direct Object Reference (CWE-639): Record identifier ${uid} retrieved without object-level permission verification.</div>` : ''}
+      </div>`;
+  }
+
+  /* ─── Search (SQL Injection — WEB-03) ─── */
+  function doSearch() {
+    const q = document.getElementById('search-q').value.trim();
+    const route = '/api/search?q=' + encodeURIComponent(q);
+    pushH(route); setBar(route);
+    logN(route,200,'xhr');
+    clog('[GET] /api/search?q='+q,'info');
+    doSearchWith(q);
+  }
+
+  const employees = [
+    { name: 'Raven Clarke',    dept: 'Executive / InfoSec', email: 'admin@oxraventest.com' },
+    { name: 'John Morrison',   dept: 'Engineering',         email: 'j.morrison@oxraventest.com' },
+    { name: 'Sarah Connor',    dept: 'Threat Intelligence', email: 's.connor@oxraventest.com' },
+    { name: 'Elliot Alderson', dept: 'Core Infrastructure', email: 'elliot@oxraventest.com' },
+    { name: 'Kai Reyes',       dept: 'Cloud Infra & SRE',   email: 'k.reyes@oxraventest.com' },
+  ];
+
+  function doSearchWith(q) {
+    const res  = document.getElementById('search-results');
+    const warn = document.getElementById('sqli-warn');
+    if (!q) { res.innerHTML=''; warn.style.display='none'; return; }
+
+    const lq = q.toLowerCase();
+    const sqliTokens = ["'","\" ","--","#"," or "," union "," select ","1=1","and 1","xor"];
+    const isSqli = sqliTokens.some(t => lq.includes(t));
+
+    if (isSqli) {
+      warn.style.display = 'block';
+      clog('[SQL] Injection in search: q="'+q+'"','warn');
+      clog('[SQL] Injecting into: SELECT name,dept FROM employees WHERE name LIKE \'%'+q+'%\'','warn');
+      clog('[SQL] UNION dump from secrets table triggered…','warn');
+      res.innerHTML = `
+        <div class="gcard">
+          <div class="gcard-hdr">
+            <span class="method get">GET</span>
+            <span class="api-path">/api/search?q=${escH(q)}</span>
+            <span class="s500">SQL ERROR → DUMP</span>
+          </div>
+          <div class="gcard-body">
+            <div class="jpre">{
+  <span class="jk">"query"</span>: <span class="js">"SELECT name,dept FROM employees WHERE name LIKE '%${escH(q)}%'"</span>,
+  <span class="jk">"error"</span>: <span class="jred">"You have an error in your SQL syntax near '${escH(q)}'"</span>,
+  <span class="jk">"union_dump"</span>: [
+    { <span class="jk">"name"</span>: <span class="jflag">"0x${encHex(getDynamicFlag('WEB-03'))}"</span>, <span class="jk">"source"</span>: <span class="js">"HEX(secrets.answer) -- DECODE_HEX_TO_ASCII"</span> },
+    { <span class="jk">"name"</span>: <span class="jflag">"0x723476336e5f61646d696e5f32303236"</span>, <span class="jk">"source"</span>: <span class="js">"HEX(users.password) WHERE role='admin'"</span> }
+  ]
+}</div>
+          </div>
+        </div>`;
+    } else {
+      warn.style.display = 'none';
+      const found = employees.filter(e => e.name.toLowerCase().includes(lq) || e.dept.toLowerCase().includes(lq));
+      if (!found.length) {
+        res.innerHTML = `<div style="color:var(--muted);font-size:13px;padding:10px 0">No results for "<strong>${escH(q)}</strong>"</div>`;
+      } else {
+        res.innerHTML = found.map(e => `
+          <div class="gcard" style="margin-bottom:10px">
+            <div class="gcard-body" style="padding:14px 16px">
+              <div style="font-weight:600;margin-bottom:4px">${escH(e.name)}</div>
+              <div style="font-size:12px;color:var(--muted)">${escH(e.dept)} · ${escH(e.email)}</div>
+            </div>
+          </div>`).join('');
+      }
+    }
+  }
+
+  /* ─── Comments / XSS (WEB-04) ─── */
+  function renderComments() {
+    const list = document.getElementById('comment-list');
+    list.innerHTML = comments.map(c => `
+      <div class="comment-item">
+        <div class="comment-meta"><span style="font-weight:600;color:var(--text)">${escH(c.user)}</span><span>${c.time}</span></div>
+        <div class="comment-body">${c.rendered || escH(c.body)}</div>
+      </div>`).join('');
+  }
+
+  function postComment() {
+    const ta = document.getElementById('comment-text');
+    const raw = ta.value.trim();
+    if (!raw) return;
+
+    const lraw = raw.toLowerCase();
+    const xssTokens = ['<script','<img','onerror','onload','javascript:','alert(','document.cookie','document.location'];
+    const isXss = xssTokens.some(t => lraw.includes(t));
+
+    const commentUser = session.isLoggedIn ? session.user : 'anonymous';
+
+    if (isXss) {
+      // Simulate XSS stored and admin visits
+      const flag04 = getDynamicFlag('WEB-04');
+      const flag04_b64 = btoa(flag04);
+      clog('[warn] Stored XSS payload detected: "'+raw+'"','warn');
+      clog('[warn] Admin visited the page — executing stored script…','warn');
+      clog('[warn] Admin session captured: session_id=ADMIN_sess_'+rnd()+'; token_b64='+flag04_b64,'error');
+
+      const cookieVal = 'session_id=ADMIN_sess_'+rnd()+'; admin_role=SuperAdmin; token_b64='+flag04_b64;
+      const triggered = document.getElementById('xss-triggered');
+      document.getElementById('xss-cookie-dump').textContent = cookieVal;
+      const xssDisplay = document.getElementById('xss-flag-display');
+      if (xssDisplay) xssDisplay.textContent = 'Intercepted Token [Base64]: ' + flag04_b64;
+      triggered.classList.add('show');
+
+      // Store comment but mark as XSS
+      comments.push({ user: commentUser, time: 'just now', body: raw, rendered: raw, isXss: true });
+    } else {
+      comments.push({ user: commentUser, time: 'just now', body: raw });
+    }
+
+    ta.value = '';
+    renderComments();
+    clog('[POST] /api/comments — new comment by '+commentUser,'info');
+    logN('/api/comments (POST)',200,'xhr');
+  }
+
+  /* ─── Alert ─── */
+  function showAlert(msg,type) {
+    const el = document.getElementById('alert-banner');
+    el.textContent=msg; el.className=type; el.style.display='block';
+    clearTimeout(el._t); el._t=setTimeout(hideAlert,6000);
+  }
+  function hideAlert() { document.getElementById('alert-banner').style.display='none'; }
+
+  /* ─── DevTools ─── */
+  function toggleDt() { document.getElementById('devtools-panel').classList.toggle('open'); }
+  function dtTab(tab) {
+    const tabs = ['elements','console','network','application','sources'];
+    document.querySelectorAll('.dt-tab').forEach((b,i) => b.classList.toggle('on', tabs[i]===tab));
+    document.querySelectorAll('.dt-pane').forEach(p => p.classList.remove('on'));
+    document.getElementById('dtp-'+tab)?.classList.add('on');
+    if (tab==='network') renderNet();
+  }
+
+  /* ─── Console ─── */
+  function clog(msg,cls='info') {
+    const out = document.getElementById('console-out');
+    const d = document.createElement('div');
+    d.className = 'cline '+cls; d.textContent = msg;
+    out.appendChild(d); out.scrollTop = out.scrollHeight;
+  }
+  function runCon() {
+    const inp = document.getElementById('cin');
+    const v = inp.value.trim(); if (!v) return;
+    clog('> '+v,'cmd');
+    let res;
+    if (v.includes('cookie')||v==='document.cookie') {
+      res = session.isLoggedIn
+        ? `session_id=SESS_${rnd()}; user=${session.user}; secret_token_hex=${encHex(getDynamicFlag('WEB-01'))}`
+        : 'session_id=guest_7f2a1c; csrf_token=xk7pq2mna';
+    } else {
+      try { res=String(eval(v)); } catch(e) { clog(e.message,'error'); inp.value=''; return; }
+    }
+    clog(res,'out'); inp.value='';
+  }
+
+  /* ─── Network ─── */
+  function logN(path,status,type) { netLog.unshift({path,status,type:type||'document',t:new Date().toLocaleTimeString()}); if(netLog.length>60) netLog.pop(); }
+  function renderNet() {
+    const st={200:'OK',302:'Found',401:'Unauthorized',403:'Forbidden',404:'Not Found',500:'Internal Server Error'};
+    document.getElementById('net-tbody').innerHTML = netLog.map(r =>
+      `<tr><td class="uc">${escH(r.path)}</td><td class="${r.status<300?'tok':'terr'}">${r.status} ${st[r.status]||''}</td><td class="tm">${r.type}</td><td class="tm">oxraventest.com</td><td class="tm">~1kB</td></tr>`
+    ).join('');
+  }
+
+  /* ─── Expose ─── */
+  window.navigateTarget = route => go(route);
+  window.toggleDevTools = toggleDt;
+  window.toggleDt = toggleDt;
+  window.hBack = hBack;
+  window.hFwd = hFwd;
+  window.hReload = () => go(hist[hIdx] || '/login', true);
+
+  /* ─── Return ─── */
+  function returnToDashboard() {
+    try {
+      if (window.parent&&window.parent!==window) {
+        if (typeof window.parent.closeSimulatedChromeWindow==='function') { window.parent.closeSimulatedChromeWindow(); return; }
+        if (typeof window.parent.navigate==='function') { window.parent.navigate('dashboard'); return; }
+      }
+    } catch(e) {}
+    window.top.location.href='index.html';
+  }
+
+  /* ─── Utils ─── */
+  function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function rnd(){return Math.random().toString(36).slice(2,8)}
+
+  /* ─── Keyboard ─── */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='F12'){e.preventDefault();toggleDt();}
+    if((e.ctrlKey||e.metaKey)&&e.key==='l'){
+      e.preventDefault();
+      try {
+        if (window.parent && window.parent.document) {
+          const pInp = window.parent.document.getElementById('chrome-omnibox-input');
+          if (pInp) { pInp.focus(); pInp.select(); return; }
+        }
+      } catch(_) {}
+    }
+  });
+
+  /* ─── Init ─── */
+  logN('/login',200,'document');
+  updNavBtns();
+  syncDynamicFlags();
+  </script>
+</body>
+</html>
